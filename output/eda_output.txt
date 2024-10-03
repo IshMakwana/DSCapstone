@@ -1,0 +1,108 @@
+sql engine ready
+----------------------------------------------------------------------------------------------------
+basic statistics
+                 id   ratecode_id  pu_location_id  do_location_id  \
+count  3.831023e+07  3.831023e+07    3.831023e+07    3.831023e+07   
+mean   1.915511e+07  1.585789e+00    1.651755e+02    1.639500e+02   
+std    1.105921e+07  7.305415e+00    6.399765e+01    6.985543e+01   
+min    1.000000e+00  0.000000e+00    1.000000e+00    1.000000e+00   
+25%    9.577557e+06  1.000000e+00    1.320000e+02    1.130000e+02   
+50%    1.915511e+07  1.000000e+00    1.620000e+02    1.620000e+02   
+75%    2.873267e+07  1.000000e+00    2.340000e+02    2.340000e+02   
+max    3.831023e+07  9.900000e+01    2.650000e+02    2.650000e+02   
+
+       passenger_count  trip_distance   fare_amount         extra  \
+count     3.831023e+07   3.831023e+07  3.831023e+07  3.831023e+07   
+mean      1.323588e+00   4.178385e+00  1.952225e+01  1.556057e+00   
+std       9.118582e-01   2.415350e+02  7.572729e+01  2.450399e+00   
+min       0.000000e+00   0.000000e+00 -1.087300e+03 -3.917000e+01   
+25%       1.000000e+00   1.090000e+00  9.300000e+00  0.000000e+00   
+50%       1.000000e+00   1.810000e+00  1.350000e+01  1.000000e+00   
+75%       1.000000e+00   3.500000e+00  2.190000e+01  2.500000e+00   
+max       9.000000e+00   3.457294e+05  3.869836e+05  1.000250e+04   
+
+            mta_tax    tip_amount  tolls_amount  improvement_surcharge  \
+count  3.831023e+07  3.831023e+07  3.831023e+07           3.831023e+07   
+mean   4.856167e-01  3.522265e+00  5.897361e-01           9.794487e-01   
+std    1.095629e-01  4.147060e+00  2.200999e+00           1.991462e-01   
+min   -5.000000e-01 -4.110000e+02 -9.130000e+01          -1.000000e+00   
+25%    5.000000e-01  1.000000e+00  0.000000e+00           1.000000e+00   
+50%    5.000000e-01  2.800000e+00  0.000000e+00           1.000000e+00   
+75%    5.000000e-01  4.410000e+00  0.000000e+00           1.000000e+00   
+max    5.316000e+01  4.174000e+03  6.655600e+02           1.000000e+00   
+
+       total_amount  payment_type  congestion_surcharge  f_trip_distance  
+count  3.831023e+07  3.831023e+07          3.831023e+07     3.831023e+07  
+mean   2.846194e+01  1.184585e+00          2.187211e+00     4.178385e+00  
+std    7.712821e+01  5.562740e-01          8.848816e-01     2.415350e+02  
+min   -1.094050e+03  0.000000e+00         -2.500000e+00     0.000000e+00  
+25%    1.595000e+01  1.000000e+00          2.500000e+00     1.090000e+00  
+50%    2.100000e+01  1.000000e+00          2.500000e+00     1.810000e+00  
+75%    3.072000e+01  1.000000e+00          2.500000e+00     3.500000e+00  
+max    3.869876e+05  5.000000e+00          2.750000e+00     3.457294e+05  
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 38310226 entries, 0 to 38310225
+Data columns (total 18 columns):
+ #   Column                 Dtype  
+---  ------                 -----  
+ 0   id                     int64  
+ 1   pickup_datetime        object 
+ 2   dropoff_datetime       object 
+ 3   ratecode_id            int64  
+ 4   pu_location_id         int64  
+ 5   do_location_id         int64  
+ 6   passenger_count        int64  
+ 7   trip_distance          float64
+ 8   fare_amount            float64
+ 9   extra                  float64
+ 10  mta_tax                float64
+ 11  tip_amount             float64
+ 12  tolls_amount           float64
+ 13  improvement_surcharge  float64
+ 14  total_amount           float64
+ 15  payment_type           int64  
+ 16  congestion_surcharge   float64
+ 17  f_trip_distance        float64
+dtypes: float64(10), int64(6), object(2)
+memory usage: 5.1+ GB
+----------------------------------------------------------------------------------------------------
+check for NaN values
+Rows with NaN: 0, rows processed: 38310226
+total rows: 38310226
+----------------------------------------------------------------------------------------------------
+average passenger count by pickup location id
+     pu_location_id  avg_passenger_count
+0                 1             1.748084
+1                 2             1.485714
+2                 3             1.076524
+3                 4             1.445096
+4                 5             1.000000
+..              ...                  ...
+257             261             1.556639
+258             262             1.326244
+259             263             1.341496
+260             264             1.360242
+261             265             1.534265
+
+[262 rows x 2 columns]
+number of trips by pickup location where no passengers where recorded
+     pu_location_id  count_passenger_count
+0                 1                    149
+1                 3                     65
+2                 4                  10526
+3                 5                      1
+4                 6                      5
+..              ...                    ...
+254             261                  10120
+255             262                  43290
+256             263                  41673
+257             264                   6267
+258             265                   9446
+
+[259 rows x 2 columns]
+maximum and minimum number of passengers
+   max_passenger_count  min_passenger_count
+0                    9                    0
+total trips where passenger_count is 0
+   trips_no_passenger
+0             1892361
