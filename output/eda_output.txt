@@ -1,48 +1,23 @@
-sql engine ready
 ----------------------------------------------------------------------------------------------------
-basic statistics
-                 id   ratecode_id  pu_location_id  do_location_id  \
-count  3.831023e+07  3.831023e+07    3.831023e+07    3.831023e+07   
-mean   1.915511e+07  1.585789e+00    1.651755e+02    1.639500e+02   
-std    1.105921e+07  7.305415e+00    6.399765e+01    6.985543e+01   
-min    1.000000e+00  0.000000e+00    1.000000e+00    1.000000e+00   
-25%    9.577557e+06  1.000000e+00    1.320000e+02    1.130000e+02   
-50%    1.915511e+07  1.000000e+00    1.620000e+02    1.620000e+02   
-75%    2.873267e+07  1.000000e+00    2.340000e+02    2.340000e+02   
-max    3.831023e+07  9.900000e+01    2.650000e+02    2.650000e+02   
-
-       passenger_count  trip_distance   fare_amount         extra  \
-count     3.831023e+07   3.831023e+07  3.831023e+07  3.831023e+07   
-mean      1.323588e+00   4.178385e+00  1.952225e+01  1.556057e+00   
-std       9.118582e-01   2.415350e+02  7.572729e+01  2.450399e+00   
-min       0.000000e+00   0.000000e+00 -1.087300e+03 -3.917000e+01   
-25%       1.000000e+00   1.090000e+00  9.300000e+00  0.000000e+00   
-50%       1.000000e+00   1.810000e+00  1.350000e+01  1.000000e+00   
-75%       1.000000e+00   3.500000e+00  2.190000e+01  2.500000e+00   
-max       9.000000e+00   3.457294e+05  3.869836e+05  1.000250e+04   
-
-            mta_tax    tip_amount  tolls_amount  improvement_surcharge  \
-count  3.831023e+07  3.831023e+07  3.831023e+07           3.831023e+07   
-mean   4.856167e-01  3.522265e+00  5.897361e-01           9.794487e-01   
-std    1.095629e-01  4.147060e+00  2.200999e+00           1.991462e-01   
-min   -5.000000e-01 -4.110000e+02 -9.130000e+01          -1.000000e+00   
-25%    5.000000e-01  1.000000e+00  0.000000e+00           1.000000e+00   
-50%    5.000000e-01  2.800000e+00  0.000000e+00           1.000000e+00   
-75%    5.000000e-01  4.410000e+00  0.000000e+00           1.000000e+00   
-max    5.316000e+01  4.174000e+03  6.655600e+02           1.000000e+00   
-
-       total_amount  payment_type  congestion_surcharge  f_trip_distance  
-count  3.831023e+07  3.831023e+07          3.831023e+07     3.831023e+07  
-mean   2.846194e+01  1.184585e+00          2.187211e+00     4.178385e+00  
-std    7.712821e+01  5.562740e-01          8.848816e-01     2.415350e+02  
-min   -1.094050e+03  0.000000e+00         -2.500000e+00     0.000000e+00  
-25%    1.595000e+01  1.000000e+00          2.500000e+00     1.090000e+00  
-50%    2.100000e+01  1.000000e+00          2.500000e+00     1.810000e+00  
-75%    3.072000e+01  1.000000e+00          2.500000e+00     3.500000e+00  
-max    3.869876e+05  5.000000e+00          2.750000e+00     3.457294e+05  
+EDA (text)
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2020 green Taxi Trips
+=====  ================  =============  ================  ================  =================  ================  ==============  ============  ============  =============  ==============  =======================  ==============  ==============  ======================
+..                   id    ratecode_id    pu_location_id    do_location_id    passenger_count     trip_distance     fare_amount         extra       mta_tax     tip_amount    tolls_amount    improvement_surcharge    total_amount    payment_type    congestion_surcharge
+=====  ================  =============  ================  ================  =================  ================  ==============  ============  ============  =============  ==============  =======================  ==============  ==============  ======================
+count       1.73405e+06    1.73405e+06       1.73405e+06       1.73405e+06        1.73405e+06       1.73405e+06     1.73405e+06   1.73405e+06   1.73405e+06    1.73405e+06     1.73405e+06              1.73405e+06     1.73405e+06     1.73405e+06             1.73405e+06
+mean   867026              0.777588        108.248           128.786              0.898061         17.2922         16.9848        0.541831      0.348049       1.26332         0.412992                 0.293253       20.1631          1.01532                 0.336749
+std    500577              0.78703          70.8013           76.4257             0.993514       1198.17           13.8051        0.948283      0.232579       2.2282          1.65956                  0.0491477      15.2731          0.800559                0.901384
+min         1              0                 1                 1                  0               -33.69         -210            -4.5          -0.5          -10.56           -6.12                    -0.3          -210.3             0                      -2.75
+25%    433513              0                52                63                  0                 1.13            7.5           0             0              0               0                        0.3             9.36            0                       0
+50%    867026              1                81               127                  1                 2.21           12.5           0             0.5            0               0                        0.3            15.7             1                       0
+75%         1.30054e+06    1               166               193                  1                 4.87           22.11          1             0.5            2.75            0                        0.3            26               2                       0
+max         1.73405e+06   99               265               265                  9            205654             803            16.74          3.55         641.2            96.12                     0.3           803.8             5                       2.75
+=====  ================  =============  ================  ================  =================  ================  ==============  ============  ============  =============  ==============  =======================  ==============  ==============  ======================
 <class 'pandas.core.frame.DataFrame'>
-RangeIndex: 38310226 entries, 0 to 38310225
-Data columns (total 18 columns):
+RangeIndex: 1734050 entries, 0 to 1734049
+Data columns (total 17 columns):
  #   Column                 Dtype  
 ---  ------                 -----  
  0   id                     int64  
@@ -62,47 +37,2513 @@ Data columns (total 18 columns):
  14  total_amount           float64
  15  payment_type           int64  
  16  congestion_surcharge   float64
- 17  f_trip_distance        float64
-dtypes: float64(10), int64(6), object(2)
-memory usage: 5.1+ GB
+dtypes: float64(9), int64(6), object(2)
+memory usage: 224.9+ MB
 ----------------------------------------------------------------------------------------------------
-check for NaN values
-Rows with NaN: 0, rows processed: 38310226
-total rows: 38310226
+Other Statistics - 2020 green Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM green_taxi_trips2020
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.16
+   1                 2                1
+   2                 3                1.2037
+   3                 4                1.30769
+   4                 5                1.02439
+   5                 6                1.33333
+   6                 7                1.45447
+   7                 8                1.25
+   8                 9                1.0641
+   9                10                1.09317
+  10                11                1.15642
+  11                13                1
+  12                14                1.06963
+  13                15                1.10185
+  14                16                1.14695
+  15                17                1.15639
+  16                18                1.16491
+  17                19                1.04795
+  18                20                1.18224
+  19                21                1.12432
+====  ================  =====================
+Showing 20 of 258 rows
 ----------------------------------------------------------------------------------------------------
-average passenger count by pickup location id
-     pu_location_id  avg_passenger_count
-0                 1             1.748084
-1                 2             1.485714
-2                 3             1.076524
-3                 4             1.445096
-4                 5             1.000000
-..              ...                  ...
-257             261             1.556639
-258             262             1.326244
-259             263             1.341496
-260             264             1.360242
-261             265             1.534265
 
-[262 rows x 2 columns]
-number of trips by pickup location where no passengers where recorded
-     pu_location_id  count_passenger_count
-0                 1                    149
-1                 3                     65
-2                 4                  10526
-3                 5                      1
-4                 6                      5
-..              ...                    ...
-254             261                  10120
-255             262                  43290
-256             263                  41673
-257             264                   6267
-258             265                   9446
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM green_taxi_trips2020 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 1                        1
+   1                 3                     2081
+   2                 4                      392
+   3                 5                        8
+   4                 6                       30
+   5                 7                     4025
+   6                 8                        7
+   7                 9                     1395
+   8                10                     2893
+   9                11                     1187
+  10                12                        6
+  11                13                       81
+  12                14                     5293
+  13                15                      598
+  14                16                     1294
+  15                17                     6272
+  16                18                     3203
+  17                19                      785
+  18                20                     1642
+  19                21                     1940
+====  ================  =======================
+Showing 20 of 259 rows
+----------------------------------------------------------------------------------------------------
 
-[259 rows x 2 columns]
-maximum and minimum number of passengers
-   max_passenger_count  min_passenger_count
-0                    9                    0
-total trips where passenger_count is 0
-   trips_no_passenger
-0             1892361
+        SELECT COUNT(*) AS trips_no_passenger FROM green_taxi_trips2020 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0                531290
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM green_taxi_trips2020 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0              64474
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM green_taxi_trips2020 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                 4223
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM green_taxi_trips2020 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0         593204
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM green_taxi_trips2020 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                     2
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM green_taxi_trips2020
+====  ===========
+  ..     count(*)
+====  ===========
+   0  1.73405e+06
+====  ===========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM green_taxi_trips2020 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0                66                65          0
+   1               264               264          0
+   2                33               164          0
+   3               225                55          0
+   4                59               136          0
+   5               173               264          0
+   6                97               255          0
+   7                97               265          0
+   8                33                66          0
+   9               181               264          0
+  10                 7                10          0
+  11               258                96          0
+  12                97                97          0
+  13               129               129          0
+  14                97               265          0
+  15               129               129          0
+  16               225               177          0
+  17               225               225          0
+  18               247               241          0
+  19               181               154          0
+====  ================  ================  =========
+Showing 20 of 22021 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM green_taxi_trips2020 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0                66                65               0
+   1               181               228               0
+   2               129               263               0
+   3               210               150               0
+   4                35                39               0
+   5                25                61               0
+   6               225                89               0
+   7               129               129               0
+   8               129                83               0
+   9                82               173               0
+  10                74                69               0
+  11                74                41               0
+  12                41               127               0
+  13                 7               260               0
+  14                 7                 7               0
+  15                 7               133               0
+  16               134                28               0
+  17                89                39               0
+  18                66                65               0
+  19               116               244               0
+====  ================  ================  ==============
+Showing 20 of 1104713 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE green_taxi_trips2020 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+New column f_trip_distance added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2020 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM green_taxi_trips2020 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2020 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE green_taxi_trips2020 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+New column f_fare_amount added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2020 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM green_taxi_trips2020 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2020 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE green_taxi_trips2020 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+New column f_mta_tax added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2020 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM green_taxi_trips2020 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2020 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2020 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+add new column fta
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2020 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE green_taxi_trips2020 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2020 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+add new column fpc
+
+    UPDATE green_taxi_trips2020 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE green_taxi_trips2020 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2020 yellow Taxi Trips
+=====  ===========  =============  ================  ================  =================  ================  ================  ================  ================  ==============  ==============  =======================  ===============  ==============  ======================
+..              id    ratecode_id    pu_location_id    do_location_id    passenger_count     trip_distance       fare_amount             extra           mta_tax      tip_amount    tolls_amount    improvement_surcharge     total_amount    payment_type    congestion_surcharge
+=====  ===========  =============  ================  ================  =================  ================  ================  ================  ================  ==============  ==============  =======================  ===============  ==============  ======================
+count  2.46485e+07    2.46485e+07       2.46485e+07       2.46485e+07        2.46485e+07       2.46485e+07       2.46485e+07       2.46485e+07       2.46485e+07     2.46485e+07     2.46485e+07              2.46485e+07      2.46485e+07     2.46485e+07             2.46485e+07
+mean   1.23242e+07    1.01412         163.969           161.171              1.41977           3.52706          12.6676            1.07182           0.512797        2.08206         0.303857                 0.297556        18.4216          1.23835                 2.21216
+std    7.11541e+06    0.771461         66.7515           70.9562             1.1252          325.036           274.091           100.718           100.711           2.61075         1.60487                  0.0374506      340.229           0.528209                0.821144
+min    1              0                 1                 1                  0               -30.62          -1259               -27                -0.5          -493.22          -40                       -0.3          -1260.3             0                      -2.5
+25%    6.16213e+06    1               114               107                  1                 0.99              6.5               0                 0.5             0               0                        0.3             11.16            1                       2.5
+50%    1.23242e+07    1               162               162                  1                 1.65              9                 0.5               0.5             1.92            0                        0.3             14.3             1                       2.5
+75%    1.84864e+07    1               234               234                  1                 3                14                 2.5               0.5             2.76            0                        0.3             19.8             2                       2.5
+max    2.46485e+07   99               265               265                  9            350915            998310            500001            500000            1393.56          925.5                      0.3              1e+06           5                       3
+=====  ===========  =============  ================  ================  =================  ================  ================  ================  ================  ==============  ==============  =======================  ===============  ==============  ======================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 24648499 entries, 0 to 24648498
+Data columns (total 17 columns):
+ #   Column                 Dtype  
+---  ------                 -----  
+ 0   id                     int64  
+ 1   pickup_datetime        object 
+ 2   dropoff_datetime       object 
+ 3   ratecode_id            int64  
+ 4   pu_location_id         int64  
+ 5   do_location_id         int64  
+ 6   passenger_count        int64  
+ 7   trip_distance          float64
+ 8   fare_amount            float64
+ 9   extra                  float64
+ 10  mta_tax                float64
+ 11  tip_amount             float64
+ 12  tolls_amount           float64
+ 13  improvement_surcharge  float64
+ 14  total_amount           float64
+ 15  payment_type           int64  
+ 16  congestion_surcharge   float64
+dtypes: float64(9), int64(6), object(2)
+memory usage: 3.1+ GB
+----------------------------------------------------------------------------------------------------
+Other Statistics - 2020 yellow Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM yellow_taxi_trips2020
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.58168
+   1                 2                1.35294
+   2                 3                1.24096
+   3                 4                1.53994
+   4                 5                1.02174
+   5                 6                1.27273
+   6                 7                1.41825
+   7                 8                1.66932
+   8                 9                1.13216
+   9                10                1.42554
+  10                11                1.19113
+  11                12                1.69268
+  12                13                1.53842
+  13                14                1.22691
+  14                15                1.13585
+  15                16                1.09707
+  16                17                1.3738
+  17                18                1.42551
+  18                19                1.23492
+  19                20                1.37571
+====  ================  =====================
+Showing 20 of 262 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM yellow_taxi_trips2020 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 1                       94
+   1                 2                        8
+   2                 3                     1450
+   3                 4                     3854
+   4                 5                       17
+   5                 6                       76
+   6                 7                     3973
+   7                 8                       12
+   8                 9                     1007
+   9                10                     3720
+  10                11                      690
+  11                12                      241
+  12                13                     4325
+  13                14                     3117
+  14                15                      581
+  15                16                     1004
+  16                17                     5364
+  17                18                     2578
+  18                19                      689
+  19                20                     1436
+====  ================  =======================
+Showing 20 of 262 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_no_passenger FROM yellow_taxi_trips2020 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0           1.29895e+06
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM yellow_taxi_trips2020 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0             330103
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM yellow_taxi_trips2020 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                 7457
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM yellow_taxi_trips2020 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0     1.6101e+06
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM yellow_taxi_trips2020 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                    72
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM yellow_taxi_trips2020
+====  ===========
+  ..     count(*)
+====  ===========
+   0  2.46485e+07
+====  ===========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM yellow_taxi_trips2020 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0                90                90          0
+   1               170               107          0
+   2               145               145          0
+   3               114               265          0
+   4               265               265          0
+   5               186               265          0
+   6               164               265          0
+   7                32                31          0
+   8               107               265          0
+   9               246               265          0
+  10               237               265          0
+  11               161               170          0
+  12               161               265          0
+  13                68               265          0
+  14                48               265          0
+  15                50               265          0
+  16               107               265          0
+  17               186               265          0
+  18                68               265          0
+  19               126               158          0
+====  ================  ================  =========
+Showing 20 of 76181 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM yellow_taxi_trips2020 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0               238               239               0
+   1               239               238               0
+   2               238               238               0
+   3               238               151               0
+   4                 7               193               0
+   5               246                48               0
+   6               246                79               0
+   7               163               161               0
+   8               161               144               0
+   9                43               239               0
+  10               143                25               0
+  11               211               234               0
+  12               234                90               0
+  13               246               142               0
+  14               138               216               0
+  15               170               161               0
+  16               161               262               0
+  17               236               162               0
+  18                50               261               0
+  19               142               236               0
+====  ================  ================  ==============
+Showing 20 of 22051866 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE yellow_taxi_trips2020 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+New column f_trip_distance added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2020 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM yellow_taxi_trips2020 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2020 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE yellow_taxi_trips2020 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+New column f_fare_amount added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2020 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM yellow_taxi_trips2020 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2020 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE yellow_taxi_trips2020 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+New column f_mta_tax added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2020 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM yellow_taxi_trips2020 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2020 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2020 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+add new column fta
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2020 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE yellow_taxi_trips2020 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2020 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+add new column fpc
+
+    UPDATE yellow_taxi_trips2020 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE yellow_taxi_trips2020 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2021 green Taxi Trips
+=====  ================  =============  ================  ================  =================  ================  ==============  ============  ============  =============  ==============  =======================  ==============  ==============  ======================
+..                   id    ratecode_id    pu_location_id    do_location_id    passenger_count     trip_distance     fare_amount         extra       mta_tax     tip_amount    tolls_amount    improvement_surcharge    total_amount    payment_type    congestion_surcharge
+=====  ================  =============  ================  ================  =================  ================  ==============  ============  ============  =============  ==============  =======================  ==============  ==============  ======================
+count       1.06876e+06    1.06876e+06       1.06876e+06       1.06876e+06        1.06876e+06       1.06876e+06     1.06876e+06   1.06876e+06   1.06876e+06    1.06876e+06     1.06876e+06              1.06876e+06     1.06876e+06     1.06876e+06             1.06876e+06
+mean   534378              0.72022         109.143           132.838              0.781056        147.568          20.1357        1.10585       0.293962       1.14745         0.577297                 0.297822       23.9325          0.867065                0.391923
+std    308523              0.923779         70.3364           76.8348             0.937859       4121.76           15.9388        1.33921       0.248013       2.4994          1.93871                  0.0315089      17.4841          0.79667                 0.961433
+min         1              0                 1                 1                  0                 0            -300            -5.5          -0.5          -86               0                       -0.3          -300.8             0                      -2.75
+25%    267190              0                61                69                  0                 1.34            9             0             0              0               0                        0.3            11.8             0                       0
+50%    534378              1                76               132                  1                 2.65           16             0.5           0.5            0               0                        0.3            19.8             1                       0
+75%    801566              1               166               200                  1                 5.87           25.95          2.75          0.5            1.96            0                        0.3            30.3             1                       0
+max         1.06876e+06   99               265               265                 48            334303            2109             8.25          3.55         400              65.55                     0.3          2113.55            5                       2.75
+=====  ================  =============  ================  ================  =================  ================  ==============  ============  ============  =============  ==============  =======================  ==============  ==============  ======================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1068755 entries, 0 to 1068754
+Data columns (total 17 columns):
+ #   Column                 Non-Null Count    Dtype  
+---  ------                 --------------    -----  
+ 0   id                     1068755 non-null  int64  
+ 1   pickup_datetime        1068755 non-null  object 
+ 2   dropoff_datetime       1068755 non-null  object 
+ 3   ratecode_id            1068755 non-null  int64  
+ 4   pu_location_id         1068755 non-null  int64  
+ 5   do_location_id         1068755 non-null  int64  
+ 6   passenger_count        1068755 non-null  int64  
+ 7   trip_distance          1068755 non-null  float64
+ 8   fare_amount            1068755 non-null  float64
+ 9   extra                  1068755 non-null  float64
+ 10  mta_tax                1068755 non-null  float64
+ 11  tip_amount             1068755 non-null  float64
+ 12  tolls_amount           1068755 non-null  float64
+ 13  improvement_surcharge  1068755 non-null  float64
+ 14  total_amount           1068755 non-null  float64
+ 15  payment_type           1068755 non-null  int64  
+ 16  congestion_surcharge   1068755 non-null  float64
+dtypes: float64(9), int64(6), object(2)
+memory usage: 138.6+ MB
+----------------------------------------------------------------------------------------------------
+Other Statistics - 2021 green Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM green_taxi_trips2021
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.11111
+   1                 3                1.30303
+   2                 4                1
+   3                 5                1.00599
+   4                 6                1.2
+   5                 7                1.30444
+   6                 8                1.10256
+   7                 9                1.17808
+   8                10                1.26972
+   9                11                1.30075
+  10                13                1
+  11                14                1.06889
+  12                15                1.59406
+  13                16                1.19424
+  14                17                1.18715
+  15                18                1.20063
+  16                19                1.08143
+  17                20                1.22041
+  18                21                1.20779
+  19                22                1.08625
+====  ================  =====================
+Showing 20 of 256 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM green_taxi_trips2021 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 2                        4
+   1                 3                     1662
+   2                 4                      253
+   3                 5                        7
+   4                 6                        5
+   5                 7                     5153
+   6                 8                       17
+   7                 9                      703
+   8                10                     2535
+   9                11                     1116
+  10                12                        3
+  11                13                       61
+  12                14                     3690
+  13                15                      245
+  14                16                      570
+  15                17                     4944
+  16                18                     2215
+  17                19                      502
+  18                20                     1428
+  19                21                     1325
+====  ================  =======================
+Showing 20 of 258 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_no_passenger FROM green_taxi_trips2021 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0                413865
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM green_taxi_trips2021 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0              40501
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM green_taxi_trips2021 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                 2417
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM green_taxi_trips2021 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0         449034
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM green_taxi_trips2021 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                    11
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM green_taxi_trips2021
+====  ===========
+  ..     count(*)
+====  ===========
+   0  1.06876e+06
+====  ===========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM green_taxi_trips2021 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0                74               247          0
+   1               244               244          0
+   2                74                94          0
+   3               136               241          0
+   4               247                75          0
+   5                 7                 7          0
+   6                82               263          0
+   7               152               152          0
+   8               159               159          0
+   9               116               247          0
+  10               133                97          0
+  11               195               106          0
+  12                74               236          0
+  13               225               264          0
+  14               196                43          0
+  15               247               247          0
+  16                69               264          0
+  17                82                75          0
+  18                74               212          0
+  19               129                93          0
+====  ================  ================  =========
+Showing 20 of 18196 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM green_taxi_trips2021 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0                43               151               0
+   1               166               239               0
+   2                41                42               0
+   3               168                75               0
+   4                75                75               0
+   5               225               265               0
+   6               244               244               0
+   7                75               213               0
+   8                74               238               0
+   9                74                60               0
+  10                42                41               0
+  11                74               116               0
+  12               116               143               0
+  13                75                42               0
+  14                74                75               0
+  15                 7                82               0
+  16               116                74               0
+  17               116                69               0
+  18               247               167               0
+  19               166                41               0
+====  ================  ================  ==============
+Showing 20 of 586966 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE green_taxi_trips2021 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+New column f_trip_distance added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2021 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM green_taxi_trips2021 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2021 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE green_taxi_trips2021 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+New column f_fare_amount added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2021 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM green_taxi_trips2021 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2021 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE green_taxi_trips2021 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+New column f_mta_tax added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2021 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM green_taxi_trips2021 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2021 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2021 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+add new column fta
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2021 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE green_taxi_trips2021 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2021 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+add new column fpc
+
+    UPDATE green_taxi_trips2021 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE green_taxi_trips2021 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2021 yellow Taxi Trips
+=====  ===========  =============  ================  ================  =================  ================  ================  ============  ============  ==============  ==============  =======================  ================  ==============  ======================
+..              id    ratecode_id    pu_location_id    do_location_id    passenger_count     trip_distance       fare_amount         extra       mta_tax      tip_amount    tolls_amount    improvement_surcharge      total_amount    payment_type    congestion_surcharge
+=====  ===========  =============  ================  ================  =================  ================  ================  ============  ============  ==============  ==============  =======================  ================  ==============  ======================
+count  3.09041e+07    3.09041e+07       3.09041e+07       3.09041e+07        3.09041e+07       3.09041e+07       3.09041e+07   3.09041e+07   3.09041e+07     3.09041e+07     3.09041e+07              3.09041e+07       3.09041e+07     3.09041e+07             3.09041e+07
+mean   1.5452e+07     1.03654         164.932           162.344              1.35918           6.92273          13.5194        1.04773       0.492274        2.34117         0.390864                 0.297169         19.6963          1.18971                 2.20609
+std    8.92124e+06    1.93539          66.3956           70.8109             1.05337         698.383           178.989         1.2547        0.0780151       2.82904         1.81145                  0.0406498       179.195           0.531883                0.833178
+min    1              0                 1                 1                  0                 0              -758            -5.5          -0.55         -333.32          -88.75                    -0.3            -951               0                      -2.5
+25%    7.72602e+06    1               130               112                  1                 1.1               6.5           0             0.5             0               0                        0.3              11.76            1                       2.5
+50%    1.5452e+07     1               162               162                  1                 1.81              9.5           0.5           0.5             2               0                        0.3              15.3             1                       2.5
+75%    2.31781e+07    1               234               234                  1                 3.3              15             2.5           0.5             3.05            0                        0.3              21.3             1                       2.5
+max    3.09041e+07   99               265               265                112            351613            818283            90.06         38.8          1140.44          956.55                     0.3          818287               5                       3
+=====  ===========  =============  ================  ================  =================  ================  ================  ============  ============  ==============  ==============  =======================  ================  ==============  ======================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 30904072 entries, 0 to 30904071
+Data columns (total 17 columns):
+ #   Column                 Dtype  
+---  ------                 -----  
+ 0   id                     int64  
+ 1   pickup_datetime        object 
+ 2   dropoff_datetime       object 
+ 3   ratecode_id            int64  
+ 4   pu_location_id         int64  
+ 5   do_location_id         int64  
+ 6   passenger_count        int64  
+ 7   trip_distance          float64
+ 8   fare_amount            float64
+ 9   extra                  float64
+ 10  mta_tax                float64
+ 11  tip_amount             float64
+ 12  tolls_amount           float64
+ 13  improvement_surcharge  float64
+ 14  total_amount           float64
+ 15  payment_type           int64  
+ 16  congestion_surcharge   float64
+dtypes: float64(9), int64(6), object(2)
+memory usage: 3.9+ GB
+----------------------------------------------------------------------------------------------------
+Other Statistics - 2021 yellow Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM yellow_taxi_trips2021
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.69741
+   1                 2                2
+   2                 3                1.24679
+   3                 4                1.48331
+   4                 5                1.06306
+   5                 6                1.27273
+   6                 7                1.37506
+   7                 8                1.46193
+   8                 9                1.1124
+   9                10                1.48088
+  10                11                1.12977
+  11                12                1.77084
+  12                13                1.55612
+  13                14                1.2551
+  14                15                1.13889
+  15                16                1.09736
+  16                17                1.36294
+  17                18                1.36725
+  18                19                1.25484
+  19                20                1.43705
+====  ================  =====================
+Showing 20 of 263 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM yellow_taxi_trips2021 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 1                      120
+   1                 2                        4
+   2                 3                     1393
+   3                 4                    10613
+   4                 5                        4
+   5                 6                       20
+   6                 7                     5848
+   7                 8                       28
+   8                 9                     1283
+   9                10                     3826
+  10                11                      717
+  11                12                      666
+  12                13                    12995
+  13                14                     3274
+  14                15                      665
+  15                16                     1319
+  16                17                     5982
+  17                18                     2145
+  18                19                      808
+  19                20                     1367
+====  ================  =======================
+Showing 20 of 260 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_no_passenger FROM yellow_taxi_trips2021 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0           2.18245e+06
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM yellow_taxi_trips2021 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0             407809
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM yellow_taxi_trips2021 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                 7237
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM yellow_taxi_trips2021 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0    2.52805e+06
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM yellow_taxi_trips2021 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                   185
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM yellow_taxi_trips2021
+====  ===========
+  ..     count(*)
+====  ===========
+   0  3.09041e+07
+====  ===========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM yellow_taxi_trips2021 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0               100                13          0
+   1               230               233          0
+   2               238               151          0
+   3               125               265          0
+   4                48                50          0
+   5                50                50          0
+   6                92               138          0
+   7               265               265          0
+   8               142               142          0
+   9               264               264          0
+  10               170               170          0
+  11                15                15          0
+  12                74                74          0
+  13                48               265          0
+  14                41                41          0
+  15               142               193          0
+  16               141               226          0
+  17               233               233          0
+  18                50               265          0
+  19                24                24          0
+====  ================  ================  =========
+Showing 20 of 120595 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM yellow_taxi_trips2021 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0               142                43               0
+   1               238               151               0
+   2               132               165               0
+   3                68                33               0
+   4               224                68               0
+   5                95               157               0
+   6                90                40               0
+   7                97               129               0
+   8               263               142               0
+   9               164               255               0
+  10               255                80               0
+  11               142                50               0
+  12                50               142               0
+  13               236               237               0
+  14               142               239               0
+  15               238               166               0
+  16               239               238               0
+  17               151               142               0
+  18               239               142               0
+  19               238               142               0
+====  ================  ================  ==============
+Showing 20 of 26803087 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE yellow_taxi_trips2021 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+New column f_trip_distance added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2021 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM yellow_taxi_trips2021 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2021 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE yellow_taxi_trips2021 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+New column f_fare_amount added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2021 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM yellow_taxi_trips2021 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2021 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE yellow_taxi_trips2021 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+New column f_mta_tax added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2021 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM yellow_taxi_trips2021 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2021 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2021 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+add new column fta
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2021 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE yellow_taxi_trips2021 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2021 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+add new column fpc
+
+    UPDATE yellow_taxi_trips2021 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE yellow_taxi_trips2021 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2022 green Taxi Trips
+=====  ======  =============  ================  ================  =================  ===============  =============  =============  =============  ============  ==============  =======================  ==============  ==============  ======================
+..         id    ratecode_id    pu_location_id    do_location_id    passenger_count    trip_distance    fare_amount          extra        mta_tax    tip_amount    tolls_amount    improvement_surcharge    total_amount    payment_type    congestion_surcharge
+=====  ======  =============  ================  ================  =================  ===============  =============  =============  =============  ============  ==============  =======================  ==============  ==============  ======================
+count  840402   840402             840402            840402            840402            840402         840402       840402         840402         840402         840402                   840402            840402        840402                  840402
+mean   420202        1.09327           99.8025          138.513             1.14928          84.4541        15.2945       0.368788       0.42545        2.00527        0.248204                 0.320029         19.3222        1.22541                 0.659075
+std    242603        1.02477           63.6402           76.9089            0.95915        3244.6           15.1801       0.692792       0.199584       3.17914        1.35534                  0.130078         16.9988        0.638809                1.17412
+min         1        0                  1                 1                 0                 0           -350.08        -7.5           -0.5          -14.3           -6.55                    -1              -350.38          0                      -2.75
+25%    210101        1                 65                74                 1                 1.15           7.5          0              0.5            0              0                        0.3              10.26          1                       0
+50%    420202        1                 75               138                 1                 2.02          11.33         0              0.5            1.45           0                        0.3              15.05          1                       0
+75%    630302        1                130               219                 1                 3.77          18            0.5            0.5            3              0                        0.3              22.86          2                       0
+max    840402       99                265               265                 9            360068           2020.2          7.5            3.55         450             77                        1              2021             5                       2.75
+=====  ======  =============  ================  ================  =================  ===============  =============  =============  =============  ============  ==============  =======================  ==============  ==============  ======================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 840402 entries, 0 to 840401
+Data columns (total 17 columns):
+ #   Column                 Non-Null Count   Dtype  
+---  ------                 --------------   -----  
+ 0   id                     840402 non-null  int64  
+ 1   pickup_datetime        840402 non-null  object 
+ 2   dropoff_datetime       840402 non-null  object 
+ 3   ratecode_id            840402 non-null  int64  
+ 4   pu_location_id         840402 non-null  int64  
+ 5   do_location_id         840402 non-null  int64  
+ 6   passenger_count        840402 non-null  int64  
+ 7   trip_distance          840402 non-null  float64
+ 8   fare_amount            840402 non-null  float64
+ 9   extra                  840402 non-null  float64
+ 10  mta_tax                840402 non-null  float64
+ 11  tip_amount             840402 non-null  float64
+ 12  tolls_amount           840402 non-null  float64
+ 13  improvement_surcharge  840402 non-null  float64
+ 14  total_amount           840402 non-null  float64
+ 15  payment_type           840402 non-null  int64  
+ 16  congestion_surcharge   840402 non-null  float64
+dtypes: float64(9), int64(6), object(2)
+memory usage: 109.0+ MB
+----------------------------------------------------------------------------------------------------
+Other Statistics - 2022 green Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM green_taxi_trips2022
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.46154
+   1                 2                1
+   2                 3                1.20833
+   3                 4                1
+   4                 5                1
+   5                 6                1
+   6                 7                1.24674
+   7                 8                1.0625
+   8                 9                1.47143
+   9                10                1.1382
+  10                11                1.03226
+  11                13                1
+  12                14                1.05556
+  13                15                1.41538
+  14                16                1.39181
+  15                17                1.19966
+  16                18                1.15041
+  17                19                1.21667
+  18                20                1.34328
+  19                21                1.51145
+====  ================  =====================
+Showing 20 of 257 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM green_taxi_trips2022 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 1                        1
+   1                 3                       38
+   2                 4                        9
+   3                 5                        1
+   4                 7                     3694
+   5                 8                        5
+   6                 9                        8
+   7                10                       61
+   8                11                       16
+   9                13                       15
+  10                14                      209
+  11                15                       11
+  12                16                       14
+  13                17                     1318
+  14                18                      123
+  15                19                        6
+  16                20                       88
+  17                21                       61
+  18                22                       54
+  19                23                        4
+====  ================  =======================
+Showing 20 of 249 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_no_passenger FROM green_taxi_trips2022 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0                 93857
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM green_taxi_trips2022 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0              49393
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM green_taxi_trips2022 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                 1435
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM green_taxi_trips2022 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0         141644
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM green_taxi_trips2022 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                    14
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM green_taxi_trips2022
+====  ==========
+  ..    count(*)
+====  ==========
+   0      840402
+====  ==========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM green_taxi_trips2022 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0               213               174          0
+   1               185               119          0
+   2                66               234          0
+   3                33               233          0
+   4               240               259          0
+   5                41                41          0
+   6               168               159          0
+   7               159               152          0
+   8               129               129          0
+   9                42               159          0
+  10               159                74          0
+  11               119                42          0
+  12               168               213          0
+  13               260               226          0
+  14                55               229          0
+  15                95                95          0
+  16                42               247          0
+  17               119               244          0
+  18               250               143          0
+  19               179               179          0
+====  ================  ================  =========
+Showing 20 of 27005 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM green_taxi_trips2022 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0                42                42               0
+   1               116                41               0
+   2                41               140               0
+   3               181               181               0
+   4                33               170               0
+   5               150               210               0
+   6                66                67               0
+   7                40               195               0
+   8               112                80               0
+   9               256               186               0
+  10                75                 4               0
+  11                41               116               0
+  12                75                74               0
+  13                74               231               0
+  14                74                42               0
+  15                41                94               0
+  16               213               174               0
+  17                51               185               0
+  18               185               119               0
+  19               129               260               0
+====  ================  ================  ==============
+Showing 20 of 678897 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE green_taxi_trips2022 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+New column f_trip_distance added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2022 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM green_taxi_trips2022 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2022 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE green_taxi_trips2022 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+New column f_fare_amount added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2022 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM green_taxi_trips2022 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2022 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE green_taxi_trips2022 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+New column f_mta_tax added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2022 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM green_taxi_trips2022 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2022 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2022 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+add new column fta
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2022 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE green_taxi_trips2022 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2022 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+add new column fpc
+
+    UPDATE green_taxi_trips2022 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE green_taxi_trips2022 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2022 yellow Taxi Trips
+=====  ===========  =============  ================  ================  =================  ================  ================  =============  ============  ===============  ==============  =======================  ================  ==============  ======================
+..              id    ratecode_id    pu_location_id    do_location_id    passenger_count     trip_distance       fare_amount          extra       mta_tax       tip_amount    tolls_amount    improvement_surcharge      total_amount    payment_type    congestion_surcharge
+=====  ===========  =============  ================  ================  =================  ================  ================  =============  ============  ===============  ==============  =======================  ================  ==============  ======================
+count  3.96561e+07    3.96561e+07       3.96561e+07       3.96561e+07        3.96561e+07       3.96561e+07       3.96561e+07    3.96561e+07   3.96561e+07      3.96561e+07     3.96561e+07              3.96561e+07       3.96561e+07     3.96561e+07             3.96561e+07
+mean   1.9828e+07     1.37503         164.866           162.575              1.3528            5.9594           10.3628         1.00753       0.488806         7.23491         0.536283                 0.316124         21.6713          1.18955                 2.20272
+std    1.14477e+07    5.69943          65.3108           70.2315             0.98009         599.191         22328.3            1.26256       0.093804     22328.1             2.04335                  0.129332         96.3736          0.519041                0.848119
+min    1              0                 1                 1                  0                 0                -1.33391e+08  -22.18         -0.55          -410             -99.99                    -1             -2567.8             0                      -2.5
+25%    9.91403e+06    1               132               113                  1                 1.1               7              0             0.5              0.93            0                        0.3              12.3             1                       2.5
+50%    1.9828e+07     1               162               162                  1                 1.9              10.5            0.5           0.5              2.16            0                        0.3              15.96            1                       2.5
+75%    2.97421e+07    1               234               234                  1                 3.56             16.5            2.5           0.5              3.36            0                        0.3              23.16            1                       2.5
+max    3.96561e+07   99               265               265                  9            389678            401092             33.5          25.48             1.33391e+08   911.87                     1            401096               5                       2.75
+=====  ===========  =============  ================  ================  =================  ================  ================  =============  ============  ===============  ==============  =======================  ================  ==============  ======================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 39656098 entries, 0 to 39656097
+Data columns (total 17 columns):
+ #   Column                 Dtype  
+---  ------                 -----  
+ 0   id                     int64  
+ 1   pickup_datetime        object 
+ 2   dropoff_datetime       object 
+ 3   ratecode_id            int64  
+ 4   pu_location_id         int64  
+ 5   do_location_id         int64  
+ 6   passenger_count        int64  
+ 7   trip_distance          float64
+ 8   fare_amount            float64
+ 9   extra                  float64
+ 10  mta_tax                float64
+ 11  tip_amount             float64
+ 12  tolls_amount           float64
+ 13  improvement_surcharge  float64
+ 14  total_amount           float64
+ 15  payment_type           int64  
+ 16  congestion_surcharge   float64
+dtypes: float64(9), int64(6), object(2)
+memory usage: 5.0+ GB
+----------------------------------------------------------------------------------------------------
+Other Statistics - 2022 yellow Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM yellow_taxi_trips2022
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.76185
+   1                 2                1.48148
+   2                 3                1.10584
+   3                 4                1.46995
+   4                 5                1
+   5                 6                1.44828
+   6                 7                1.28849
+   7                 8                1.48669
+   8                 9                1.11911
+   9                10                1.52719
+  10                11                1.13424
+  11                12                1.79957
+  12                13                1.4807
+  13                14                1.16587
+  14                15                1.05538
+  15                16                1.09785
+  16                17                1.22984
+  17                18                1.09961
+  18                19                1.11965
+  19                20                1.2115
+====  ================  =====================
+Showing 20 of 262 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM yellow_taxi_trips2022 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 1                      254
+   1                 2                        3
+   2                 3                       32
+   3                 4                    13349
+   4                 5                        1
+   5                 6                        2
+   6                 7                     2987
+   7                 8                       17
+   8                 9                       28
+   9                10                      367
+  10                11                       11
+  11                12                      905
+  12                13                    18252
+  13                14                      265
+  14                15                       19
+  15                16                       46
+  16                17                     2051
+  17                18                       97
+  18                19                       36
+  19                20                      125
+====  ================  =======================
+Showing 20 of 256 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_no_passenger FROM yellow_taxi_trips2022 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0           2.13165e+06
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM yellow_taxi_trips2022 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0             574059
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM yellow_taxi_trips2022 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                 6309
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM yellow_taxi_trips2022 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0    2.61852e+06
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM yellow_taxi_trips2022 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                   234
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM yellow_taxi_trips2022
+====  ===========
+  ..     count(*)
+====  ===========
+   0  3.96561e+07
+====  ===========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM yellow_taxi_trips2022 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0                87                87          0
+   1                50               265          0
+   2               246               246          0
+   3               239               265          0
+   4                87               265          0
+   5                48               265          0
+   6               138               265          0
+   7                48               265          0
+   8                48               265          0
+   9                90               170          0
+  10                48               132          0
+  11               148               144          0
+  12                68               265          0
+  13               163               265          0
+  14               186               265          0
+  15               158                50          0
+  16               239               151          0
+  17               231                68          0
+  18               132               138          0
+  19               138               138          0
+====  ================  ================  =========
+Showing 20 of 243434 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM yellow_taxi_trips2022 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0               142               236               0
+   1               236                42               0
+   2               166               166               0
+   3               114                68               0
+   4                68               163               0
+   5               233                87               0
+   6               238               152               0
+   7               166               236               0
+   8               236               141               0
+   9               141               229               0
+  10               114                90               0
+  11               234               113               0
+  12               246                79               0
+  13                43               140               0
+  14               239               151               0
+  15               148               141               0
+  16               237               107               0
+  17                 7                 7               0
+  18               107               263               0
+  19               263               107               0
+====  ================  ================  ==============
+Showing 20 of 34014596 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE yellow_taxi_trips2022 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+New column f_trip_distance added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2022 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM yellow_taxi_trips2022 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2022 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE yellow_taxi_trips2022 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+New column f_fare_amount added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2022 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM yellow_taxi_trips2022 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2022 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE yellow_taxi_trips2022 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+New column f_mta_tax added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2022 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM yellow_taxi_trips2022 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2022 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2022 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+add new column fta
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2022 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE yellow_taxi_trips2022 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2022 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+add new column fpc
+
+    UPDATE yellow_taxi_trips2022 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE yellow_taxi_trips2022 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2023 green Taxi Trips
+=====  ======  =============  ================  ================  =================  ===============  =============  =============  =============  ============  ==============  =======================  ==============  ==============  ======================  =================  ===============  =============  ================  ===================
+..         id    ratecode_id    pu_location_id    do_location_id    passenger_count    trip_distance    fare_amount          extra        mta_tax    tip_amount    tolls_amount    improvement_surcharge    total_amount    payment_type    congestion_surcharge    f_trip_distance    f_fare_amount      f_mta_tax    f_total_amount    f_passenger_count
+=====  ======  =============  ================  ================  =================  ===============  =============  =============  =============  ============  ==============  =======================  ==============  ==============  ======================  =================  ===============  =============  ================  ===================
+count  787060   787060             787060            787060           787060               787060       787060       787060         787060         787060         787060                   787060            787060         787060                 787060               787060           787060       787060              787060             787060
+mean   393530        1.08424           98.3209          139.38             1.20204             19.02        18.3309       0.872157       0.569525       2.33057        0.242722                 0.976781         23.8568         1.25758                0.690123            21.1824          18.3523       0.638578           23.875              1.28032
+std    227205        1.09354           60.0313           76.3513           0.956339          1040           18.5165       1.33515        0.386018       3.35279        1.34164                  0.156052         20.3639         0.59928                1.19229           1060.22            18.5129       0.345118           20.3551             0.893619
+min         1        0                  1                 1                0                    0         -500           -5             -0.5          -22.2           -6.55                    -1              -501              0                     -2.75                 0             -500           -0.5              -501                  0
+25%    196766        1                 74                74                1                    1.15         9.3          0              0.5            0              0                        1                13.5            1                      0                    1.26             9.5          0.5                13.5                1
+50%    393530        1                 75               138                1                    1.92        14.2          0              0.5            1.87           0                        1                18.9            1                      0                    2.04            14.2          0.5                18.9                1
+75%    590295        1                129               223                1                    3.47        21.2          1              0.5            3.56           0                        1                28.1            2                      2.5                  3.69            21.2          0.5                28.12               1
+max    787060       99                265               265                9               278990         4003           12.7            4.25         460             65                        1              4004.5            5                      2.75            278990             4003            4.25             4004.5                9
+=====  ======  =============  ================  ================  =================  ===============  =============  =============  =============  ============  ==============  =======================  ==============  ==============  ======================  =================  ===============  =============  ================  ===================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 787060 entries, 0 to 787059
+Data columns (total 22 columns):
+ #   Column                 Non-Null Count   Dtype  
+---  ------                 --------------   -----  
+ 0   id                     787060 non-null  int64  
+ 1   pickup_datetime        787060 non-null  object 
+ 2   dropoff_datetime       787060 non-null  object 
+ 3   ratecode_id            787060 non-null  int64  
+ 4   pu_location_id         787060 non-null  int64  
+ 5   do_location_id         787060 non-null  int64  
+ 6   passenger_count        787060 non-null  int64  
+ 7   trip_distance          787060 non-null  float64
+ 8   fare_amount            787060 non-null  float64
+ 9   extra                  787060 non-null  float64
+ 10  mta_tax                787060 non-null  float64
+ 11  tip_amount             787060 non-null  float64
+ 12  tolls_amount           787060 non-null  float64
+ 13  improvement_surcharge  787060 non-null  float64
+ 14  total_amount           787060 non-null  float64
+ 15  payment_type           787060 non-null  int64  
+ 16  congestion_surcharge   787060 non-null  float64
+ 17  f_trip_distance        787060 non-null  float64
+ 18  f_fare_amount          787060 non-null  float64
+ 19  f_mta_tax              787060 non-null  float64
+ 20  f_total_amount         787060 non-null  float64
+ 21  f_passenger_count      787060 non-null  int64  
+dtypes: float64(13), int64(7), object(2)
+memory usage: 132.1+ MB
+----------------------------------------------------------------------------------------------------
+Other Statistics - 2023 green Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM green_taxi_trips2023
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.26316
+   1                 3                1.32394
+   2                 4                1
+   3                 6                1
+   4                 7                1.27887
+   5                 8                1
+   6                 9                1.35366
+   7                10                1.10638
+   8                11                1.08696
+   9                13                1
+  10                14                1.09333
+  11                15                1.25
+  12                16                1.23188
+  13                17                1.26567
+  14                18                1.11712
+  15                19                1.11392
+  16                20                1.21
+  17                21                1.45515
+  18                22                1.11688
+  19                23                1
+====  ================  =====================
+Showing 20 of 251 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM green_taxi_trips2023 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 3                       29
+   1                 7                     2273
+   2                 8                        4
+   3                 9                       56
+   4                10                       69
+   5                11                       27
+   6                14                       70
+   7                15                       15
+   8                16                       29
+   9                17                      605
+  10                18                       70
+  11                19                       10
+  12                20                      112
+  13                21                      107
+  14                22                       39
+  15                23                        1
+  16                24                       75
+  17                25                      832
+  18                26                      110
+  19                28                       94
+====  ================  =======================
+Showing 20 of 227 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_no_passenger FROM green_taxi_trips2023 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0                 61756
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM green_taxi_trips2023 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0              39494
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM green_taxi_trips2023 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                  835
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM green_taxi_trips2023 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0          99130
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM green_taxi_trips2023 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                     9
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM green_taxi_trips2023
+====  ==========
+  ..    count(*)
+====  ==========
+   0      787060
+====  ==========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM green_taxi_trips2023 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0                83               129          0
+   1                66               164          0
+   2                66                48          0
+   3               129               226          0
+   4               260                74          0
+   5                80               145          0
+   6               179               179          0
+   7               179                 7          0
+   8               152               166          0
+   9                36                36          0
+  10               112               114          0
+  11               168               168          0
+  12               255                90          0
+  13               101               101          0
+  14               101               101          0
+  15               129               129          0
+  16               157               157          0
+  17                61                61          0
+  18                33                33          0
+  19               256               256          0
+====  ================  ================  =========
+Showing 20 of 18741 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM green_taxi_trips2023 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0               166               143               0
+   1                24                43               0
+   2                41               238               0
+   3                41                74               0
+   4                41               262               0
+   5               181                45               0
+   6                24                75               0
+   7                41               166               0
+   8                24               140               0
+   9               255               234               0
+  10                75               140               0
+  11                75               148               0
+  12                66               255               0
+  13               255               186               0
+  14               195               210               0
+  15                83               129               0
+  16                97                68               0
+  17                 7               260               0
+  18                41                75               0
+  19                75                74               0
+====  ================  ================  ==============
+Showing 20 of 668224 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE green_taxi_trips2023 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+----------------------------------------------------------------------------------------------------
+Error: (sqlite3.OperationalError) duplicate column name: f_trip_distance
+[SQL: ALTER TABLE green_taxi_trips2023 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+----------------------------------------------------------------------------------------------------
+Rolling back...
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2023 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM green_taxi_trips2023 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2023 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE green_taxi_trips2023 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+----------------------------------------------------------------------------------------------------
+Error: (sqlite3.OperationalError) duplicate column name: f_fare_amount
+[SQL: ALTER TABLE green_taxi_trips2023 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+----------------------------------------------------------------------------------------------------
+Rolling back...
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2023 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM green_taxi_trips2023 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2023 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE green_taxi_trips2023 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+----------------------------------------------------------------------------------------------------
+Error: (sqlite3.OperationalError) duplicate column name: f_mta_tax
+[SQL: ALTER TABLE green_taxi_trips2023 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+----------------------------------------------------------------------------------------------------
+Rolling back...
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2023 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM green_taxi_trips2023 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE green_taxi_trips2023 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2023 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+----------------------------------------------------------------------------------------------------
+Error: (sqlite3.OperationalError) duplicate column name: f_total_amount
+[SQL: 
+    ALTER TABLE green_taxi_trips2023 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    ]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+----------------------------------------------------------------------------------------------------
+Rolling back...
+----------------------------------------------------------------------------------------------------
+
+    UPDATE green_taxi_trips2023 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE green_taxi_trips2023 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE green_taxi_trips2023 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+----------------------------------------------------------------------------------------------------
+Error: (sqlite3.OperationalError) duplicate column name: f_passenger_count
+[SQL: 
+    ALTER TABLE green_taxi_trips2023 ADD COLUMN f_passenger_count INT DEFAULT 0
+    ]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+----------------------------------------------------------------------------------------------------
+Rolling back...
+
+    UPDATE green_taxi_trips2023 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE green_taxi_trips2023 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
+----------------------------------------------------------------------------------------------------
+Basic Statistics - 2023 yellow Taxi Trips
+=====  ===========  =============  ================  ================  =================  ================  ================  ===============  ============  ==============  ==============  =======================  ================  ==============  ======================
+..              id    ratecode_id    pu_location_id    do_location_id    passenger_count     trip_distance       fare_amount            extra       mta_tax      tip_amount    tolls_amount    improvement_surcharge      total_amount    payment_type    congestion_surcharge
+=====  ===========  =============  ================  ================  =================  ================  ================  ===============  ============  ==============  ==============  =======================  ================  ==============  ======================
+count  3.83102e+07    3.83102e+07       3.83102e+07       3.83102e+07        3.83102e+07       3.83102e+07       3.83102e+07      3.83102e+07   3.83102e+07     3.83102e+07     3.83102e+07              3.83102e+07       3.83102e+07     3.83102e+07             3.83102e+07
+mean   1.91551e+07    1.58579         165.175           163.95               1.32359           4.08895          19.5223           1.55606       0.485617        3.52227         0.589736                 0.979449         28.4619          1.18458                 2.18721
+std    1.10592e+07    7.30542          63.9977           69.8554             0.911858        241.251            75.7273           2.4504        0.109563        4.14706         2.201                    0.199146         77.1282          0.556274                0.884882
+min    1              0                 1                 1                  0                 0             -1087.3            -39.17         -0.5          -411             -91.3                     -1             -1094.05            0                      -2.5
+25%    9.57756e+06    1               132               113                  1                 1.04              9.3              0             0.5             1               0                        1                15.95            1                       2.5
+50%    1.91551e+07    1               162               162                  1                 1.79             13.5              1             0.5             2.8             0                        1                21               1                       2.5
+75%    2.87327e+07    1               234               234                  1                 3.4              21.9              2.5           0.5             4.41            0                        1                30.72            1                       2.5
+max    3.83102e+07   99               265               265                  9            345729            386984            10002.5          53.16         4174             665.56                     1            386988               5                       2.75
+=====  ===========  =============  ================  ================  =================  ================  ================  ===============  ============  ==============  ==============  =======================  ================  ==============  ======================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 38310226 entries, 0 to 38310225
+Data columns (total 17 columns):
+ #   Column                 Dtype  
+---  ------                 -----  
+ 0   id                     int64  
+ 1   pickup_datetime        object 
+ 2   dropoff_datetime       object 
+ 3   ratecode_id            int64  
+ 4   pu_location_id         int64  
+ 5   do_location_id         int64  
+ 6   passenger_count        int64  
+ 7   trip_distance          float64
+ 8   fare_amount            float64
+ 9   extra                  float64
+ 10  mta_tax                float64
+ 11  tip_amount             float64
+ 12  tolls_amount           float64
+ 13  improvement_surcharge  float64
+ 14  total_amount           float64
+ 15  payment_type           int64  
+ 16  congestion_surcharge   float64
+dtypes: float64(9), int64(6), object(2)
+memory usage: 4.9+ GB
+----------------------------------------------------------------------------------------------------
+Other Statistics - 2023 yellow Taxi Trips
+
+        SELECT pu_location_id, avg(passenger_count) AS avg_passenger_count FROM yellow_taxi_trips2023
+        WHERE passenger_count > 0 GROUP BY pu_location_id
+        
+====  ================  =====================
+  ..    pu_location_id    avg_passenger_count
+====  ================  =====================
+   0                 1                1.74808
+   1                 2                1.48571
+   2                 3                1.07652
+   3                 4                1.4451
+   4                 5                1
+   5                 6                1.89951
+   6                 7                1.25775
+   7                 8                1.3427
+   8                 9                1.08287
+   9                10                1.4709
+  10                11                1.17983
+  11                12                1.81871
+  12                13                1.40769
+  13                14                1.23485
+  14                15                1.06378
+  15                16                1.11592
+  16                17                1.15942
+  17                18                1.06975
+  18                19                1.13109
+  19                20                1.10884
+====  ================  =====================
+Showing 20 of 262 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT pu_location_id, COUNT(passenger_count) AS count_passenger_count FROM yellow_taxi_trips2023 
+        WHERE passenger_count = 0 GROUP BY pu_location_id
+        
+====  ================  =======================
+  ..    pu_location_id    count_passenger_count
+====  ================  =======================
+   0                 1                      149
+   1                 3                       65
+   2                 4                    10526
+   3                 5                        1
+   4                 6                        5
+   5                 7                     3615
+   6                 8                       10
+   7                 9                       64
+   8                10                      364
+   9                11                       24
+  10                12                      873
+  11                13                    14194
+  12                14                      495
+  13                15                       28
+  14                16                       58
+  15                17                     2177
+  16                18                      108
+  17                19                       50
+  18                20                      121
+  19                21                       69
+====  ================  =======================
+Showing 20 of 259 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_no_passenger FROM yellow_taxi_trips2023 WHERE passenger_count=0
+        
+====  ====================
+  ..    trips_no_passenger
+====  ====================
+   0           1.89236e+06
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_trip FROM yellow_taxi_trips2023 WHERE trip_distance=0
+        
+====  =================
+  ..    trips_zero_trip
+====  =================
+   0             773457
+====  =================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_zero_amount FROM yellow_taxi_trips2023 WHERE total_amount=0
+        
+====  ===================
+  ..    trips_zero_amount
+====  ===================
+   0                 5999
+====  ===================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_union FROM yellow_taxi_trips2023 
+        WHERE passenger_count=0 OR trip_distance=0 OR total_amount=0
+        
+====  =============
+  ..    trips_union
+====  =============
+   0     2.3602e+06
+====  =============
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+
+        SELECT COUNT(*) AS trips_intersection FROM yellow_taxi_trips2023 
+        WHERE passenger_count=0 AND trip_distance=0 AND total_amount=0
+        
+====  ====================
+  ..    trips_intersection
+====  ====================
+   0                   291
+====  ====================
+Showing 1 of 1 rows
+----------------------------------------------------------------------------------------------------
+SELECT count(*) FROM yellow_taxi_trips2023
+====  ===========
+  ..     count(*)
+====  ===========
+   0  3.83102e+07
+====  ===========
+Showing 1 of 1 rows
+
+    SELECT pu_location_id, do_location_id, mta_tax FROM yellow_taxi_trips2023 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        mta_tax=0
+    
+====  ================  ================  =========
+  ..    pu_location_id    do_location_id    mta_tax
+====  ================  ================  =========
+   0               237               237          0
+   1                74                74          0
+   2                48               265          0
+   3               164                87          0
+   4               162               208          0
+   5                60               265          0
+   6               132               265          0
+   7               132               265          0
+   8               142               265          0
+   9               161               265          0
+  10               252               265          0
+  11               246               249          0
+  12               234               265          0
+  13               132               265          0
+  14               161               265          0
+  15               231               239          0
+  16               186               265          0
+  17               138               265          0
+  18                68               265          0
+  19               236               236          0
+====  ================  ================  =========
+Showing 20 of 231435 rows
+
+    SELECT pu_location_id, do_location_id, tolls_amount FROM yellow_taxi_trips2023 
+    WHERE passenger_count>0 AND 
+        total_amount > 0 AND 
+        trip_distance > 0 AND 
+        tolls_amount=0
+    
+====  ================  ================  ==============
+  ..    pu_location_id    do_location_id    tolls_amount
+====  ================  ================  ==============
+   0               161               141               0
+   1                43               237               0
+   2                48               238               0
+   3               107                79               0
+   4               161               137               0
+   5               239               143               0
+   6               164               236               0
+   7               141               107               0
+   8               234                68               0
+   9                79               264               0
+  10               164               143               0
+  11               138                33               0
+  12                33                61               0
+  13                79               186               0
+  14                90                48               0
+  15               113               255               0
+  16               237               239               0
+  17               143               229               0
+  18               137                79               0
+  19               163               161               0
+====  ================  ================  ==============
+Showing 20 of 32689295 rows
+----------------------------------------------------------------------------------------------------
+fix data for ['trip_distance', 'fare_amount', 'mta_tax']
+ALTER TABLE yellow_taxi_trips2023 ADD COLUMN f_trip_distance FLOAT DEFAULT 0.0
+New column f_trip_distance added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2023 SET f_trip_distance=trip_distance
+    
+Copied trip_distance -> f_trip_distance
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(trip_distance) as avg
+        FROM yellow_taxi_trips2023 WHERE trip_distance > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2023 SET f_trip_distance=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_trip_distance=0
+        
+Fixed missing trip_distance
+ALTER TABLE yellow_taxi_trips2023 ADD COLUMN f_fare_amount FLOAT DEFAULT 0.0
+New column f_fare_amount added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2023 SET f_fare_amount=fare_amount
+    
+Copied fare_amount -> f_fare_amount
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(fare_amount) as avg
+        FROM yellow_taxi_trips2023 WHERE fare_amount > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2023 SET f_fare_amount=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_fare_amount=0
+        
+Fixed missing fare_amount
+ALTER TABLE yellow_taxi_trips2023 ADD COLUMN f_mta_tax FLOAT DEFAULT 0.0
+New column f_mta_tax added
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2023 SET f_mta_tax=mta_tax
+    
+Copied mta_tax -> f_mta_tax
+
+    WITH D AS (
+        SELECT pu_location_id as pu, do_location_id as do, AVG(mta_tax) as avg
+        FROM yellow_taxi_trips2023 WHERE mta_tax > 0 GROUP BY pu_location_id, do_location_id
+    ) 
+    UPDATE yellow_taxi_trips2023 SET f_mta_tax=D.avg FROM D 
+    WHERE pu_location_id=D.pu 
+        AND do_location_id=D.do 
+        AND f_mta_tax=0
+        
+Fixed missing mta_tax
+----------------------------------------------------------------------------------------------------
+Fix total_amount by fare_amount and other related columns
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2023 ADD COLUMN f_total_amount FLOAT DEFAULT 0.0
+    
+add new column fta
+----------------------------------------------------------------------------------------------------
+
+    UPDATE yellow_taxi_trips2023 SET f_total_amount=total_amount
+    
+copy ta -> fta
+
+    UPDATE yellow_taxi_trips2023 SET f_total_amount=total_amount
+    
+fix missing ffa
+----------------------------------------------------------------------------------------------------
+Fix passenger_count
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+    ALTER TABLE yellow_taxi_trips2023 ADD COLUMN f_passenger_count INT DEFAULT 0
+    
+add new column fpc
+
+    UPDATE yellow_taxi_trips2023 SET f_passenger_count=passenger_count
+    
+copy pc -> fpc
+
+    UPDATE yellow_taxi_trips2023 SET f_passenger_count=1
+    WHERE passenger_count=0 
+        AND f_trip_distance>0 
+        AND f_total_amount>0
+    
+fix missing ftd
