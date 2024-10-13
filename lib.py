@@ -1,4 +1,5 @@
 import warnings
+import pandas as pd
 from tabulate import tabulate
 from sqlalchemy import MetaData
 from sqlalchemy import create_engine
@@ -34,6 +35,14 @@ normalizedColumns = {
     'congestion_surcharge': 'congestion_surcharge'
 }
 
+COLUMNS = [
+    'pickup_datetime', 'dropoff_datetime',
+    'pu_location_id', 'do_location_id',
+    'passenger_count', 'trip_distance', 'total_amount',
+    'fare_amount', 'tip_amount', 'mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 'congestion_surcharge',
+    'payment_type', 'ratecode_id'
+]
+
 # Functions
 def getSQLiteString():
     return 'sqlite:///db/taxi_db.db'
@@ -50,6 +59,9 @@ def getDateColumns(taxi_type = YELLOW):
 #     con_str = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={SERVER};DATABASE={DATABASE};UID={USERNAME};PWD={PASSWORD};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
 #     return URL.create("mssql+pyodbc", query={"odbc_connect": con_str})
 
+def getDF(sql):
+    with DR.engn.connect() as conn:
+        return pd.read_sql(sql, conn)
 
 # Classes
 class Output:
@@ -97,3 +109,6 @@ TABLES = [
     (GREEN, 2022), (YELLOW, 2022),
     (GREEN, 2023), (YELLOW, 2023)
 ]
+
+# Data Reader can be used by all other modules
+DR = TaxiDBReader()
