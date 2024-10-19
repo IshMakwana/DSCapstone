@@ -43,6 +43,28 @@ COLUMNS = [
     'payment_type', 'ratecode_id'
 ]
 
+ALL_COLUMNS = ['pickup_datetime',
+ 'dropoff_datetime',
+ 'pu_location_id',
+ 'do_location_id',
+ 'passenger_count',
+ 'trip_distance',
+ 'total_amount',
+ 'fare_amount',
+ 'tip_amount',
+ 'mta_tax',
+ 'tolls_amount',
+ 'extra',
+ 'improvement_surcharge',
+ 'congestion_surcharge',
+ 'payment_type',
+ 'ratecode_id',
+ 'f_trip_distance',
+ 'f_fare_amount',
+ 'f_mta_tax',
+ 'f_total_amount',
+ 'f_passenger_count']
+
 # Functions
 def getSQLiteString():
     return 'sqlite:///db/taxi_db.db'
@@ -62,6 +84,13 @@ def getDateColumns(taxi_type = YELLOW):
 def getDF(sql):
     with DR.engn.connect() as conn:
         return pd.read_sql(sql, conn)
+    
+def runSql(sql, commit = False):
+    with DR.engn.connect() as conn:
+        res = conn.execute(sql)
+        if commit:
+            conn.commit()
+        return res
 
 # Classes
 class Output:
@@ -100,8 +129,9 @@ class TaxiDBReader:
         self.year = year
         self.taxi_type = taxi_type
 
-    def getTableName(self):
-        return f'{self.taxi_type}_taxi_trips{self.year}'
+    # uniq_ can be added a prefix to refer to distinct tables for the data
+    def getTableName(self, prefix = ''):
+        return f'{prefix}{self.taxi_type}_taxi_trips{self.year}'
     
 TABLES = [
     (GREEN, 2020), (YELLOW, 2020),
@@ -110,5 +140,21 @@ TABLES = [
     (GREEN, 2023), (YELLOW, 2023)
 ]
 
+TAXI_ZONES='taxi_zones'
+
 # Data Reader can be used by all other modules
 DR = TaxiDBReader()
+
+# common code templates
+# ctables = [
+#     (GREEN, 2023), 
+#     (YELLOW, 2023)
+# ]
+
+# for t in TABLES:
+# for t in ctables:
+#     taxi_type, year  = t
+#     DR.setTable(year, taxi_type)
+#     table_name = DR.getTableName()
+#     O.out(f'table: {table_name}')
+#     uniq_table_name = DR.getTableName('uniq_')
