@@ -158,3 +158,5 @@ DR = TaxiDBReader()
 #     table_name = DR.getTableName()
 #     O.out(f'table: {table_name}')
 #     uniq_table_name = DR.getTableName('uniq_')
+
+# (strftime('%Y-%m-%d %H', pickup_datetime)) as dt_hr,
