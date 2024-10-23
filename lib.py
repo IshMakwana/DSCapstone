@@ -1,8 +1,13 @@
 import warnings
 import pandas as pd
+import datetime
 from tabulate import tabulate
 from sqlalchemy import MetaData
 from sqlalchemy import create_engine
+import numpy as np
+from sqlalchemy.sql import text
+import matplotlib.pyplot as plt
+import calendar
 
 warnings.filterwarnings("ignore")
 
@@ -66,6 +71,11 @@ ALL_COLUMNS = ['pickup_datetime',
  'f_passenger_count']
 
 # Functions
+def getOutputPath(prefix = 'output'):
+    today_date = datetime.datetime.today().strftime('%Y-%m-%d')
+
+    return f"output/{prefix}_{today_date}.txt"
+
 def getSQLiteString():
     return 'sqlite:///db/taxi_db.db'
 
@@ -144,13 +154,16 @@ TAXI_ZONES='taxi_zones'
 
 # Data Reader can be used by all other modules
 DR = TaxiDBReader()
+O = Output(getOutputPath())
 
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # common code templates
 # ctables = [
 #     (GREEN, 2023), 
 #     (YELLOW, 2023)
 # ]
-
+# ----------------------------------------------------------------------
 # for t in TABLES:
 # for t in ctables:
 #     taxi_type, year  = t
@@ -159,4 +172,41 @@ DR = TaxiDBReader()
 #     O.out(f'table: {table_name}')
 #     uniq_table_name = DR.getTableName('uniq_')
 
+# ----------------------------------------------------------------------
 # (strftime('%Y-%m-%d %H', pickup_datetime)) as dt_hr,
+
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+# SELECT strftime('%Y-%m-%d', pickup_datetime) as date, 
+#     AVG(f_total_amount) as total_amount,
+#     AVG(tip_amount) as tip_amount,
+#     AVG(tolls_amount) as tolls_amount,
+#     AVG(f_trip_distance) as trip_distance,
+#     AVG(f_passenger_count) as passenger_count,
+#     COUNT(1) as trip_count                    
+# FROM {table_name}
+# WHERE f_total_amount > 0 AND 
+#     f_trip_distance > 0 AND 
+#     f_passenger_count > 0
+# GROUP BY date
+# ORDER BY date
+
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+# from lib import *
+
+# year = 2023
+# taxi_type = GREEN
+
+# DR.setTable(year, taxi_type)
+# table_name = DR.getTableName()
+# u_table_name = DR.getTableName('uniq_')
+
+# sql = f"""
+
+# """
+
+# getDF
+# runSql
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
