@@ -9,6 +9,7 @@ from sqlalchemy.sql import text
 import matplotlib.pyplot as plt
 import calendar
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 warnings.filterwarnings("ignore")
 
@@ -81,6 +82,7 @@ def getSQLiteString():
 
 def getDateColumns(taxi_type = YELLOW):
     return ['lpep_pickup_datetime','lpep_dropoff_datetime'] if taxi_type == GREEN else ['tpep_pickup_datetime','tpep_dropoff_datetime']
+
 
 
 class Output:
