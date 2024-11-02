@@ -9,7 +9,6 @@ from sqlalchemy.sql import text
 import matplotlib.pyplot as plt
 import calendar
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import train_test_split
 
 warnings.filterwarnings("ignore")
 
@@ -121,9 +120,8 @@ class TaxiDBReader:
         self.year = year
         self.taxi_type = taxi_type
 
-    # uniq_ can be added a prefix to refer to distinct tables for the data
-    def getTableName(self, prefix = ''):
-        return f'{prefix}{self.taxi_type}_taxi_trips{self.year}'
+    def getTableName(self):
+        return f'{self.taxi_type}_taxi_trips{self.year}'
     
 TABLES = [
     (GREEN, 2020), (YELLOW, 2020),
@@ -174,7 +172,7 @@ def selFrom(cols, year, taxi_type):
             mappedCols.append(c)
     DR.setTable(year, taxi_type)
     return f'''
-    SELECT {', '.join(mappedCols)} FROM {DR.getTableName('uniq_')}
+    SELECT {', '.join(mappedCols)} FROM {DR.getTableName()}
 '''
 
 
@@ -358,6 +356,75 @@ class LinRegForecast:
 
     
 
+import geopandas as gpd
+from shapely import wkt
+
+def getTaxiGDF():
+    gdf = getDF(text('SELECT zone_shape, location_id, location_name, zone FROM taxi_zones'))
+    gdf['geometry'] = gdf['zone_shape'].apply(wkt.loads)
+    gdf = gpd.GeoDataFrame(gdf.dropna(), geometry='geometry')
+    gdf['geometry'] = gdf['geometry'].buffer(0)
+
+    return gdf
+
+
+def fmtDate(y, date, fmt):
+    updated_date = datetime.datetime(y, date.month, date.day, date.hour, date.minute)
+    return datetime.datetime.strftime(updated_date, fmt)
+
+
+def getTripsForDateRange(start_date, end_date, columns, taxi_type):
+    data_frames = []
+
+    for year in range(start_date.year, end_date.year + 1):
+        sd_str = datetime.datetime.strftime(start_date, day_format)
+        ed_str = datetime.datetime.strftime(end_date, day_format)
+
+        if year == start_date.year and year == end_date.year:
+            # Single-year case
+            query = f"""
+                {selFrom(columns, year, taxi_type)}
+                WHERE pickup_datetime >= '{sd_str}' AND pickup_datetime <= '{ed_str}'
+            """
+        elif year == start_date.year:
+            # First year in range, so filter from startDate to the end of the year
+            query = f"""
+                {selFrom(columns, year, taxi_type)}
+                WHERE pickup_datetime >= '{sd_str}' AND pickup_datetime <= '{year}-12-31 23:59:59'
+            """
+        elif year == end_date.year:
+            # Last year in range, so filter from the beginning of the year to endDate
+            query = f"""
+                {selFrom(columns, year, taxi_type)}
+                WHERE pickup_datetime >= '{year}-01-01' AND pickup_datetime <= '{ed_str}'
+            """
+        else:
+            # Intermediate years (full-year range)
+            query = f"""
+                {selFrom(columns, year, taxi_type)}
+                WHERE pickup_datetime >= '{year}-01-01' AND pickup_datetime <= '{year}-12-31 23:59:59'
+            """
+        
+        # Execute the query and store the result in a DataFrame
+        df = getDF(query)
+        data_frames.append(df)
+
+    # Concatenate all DataFrames from the list into a single DataFrame
+    result_df = pd.concat(data_frames, ignore_index=True)
+
+    return result_df
+
+
+def getTripCountByPickup(year, taxi_type):
+    cols = ['pu_location_id', 'COUNT(1) as trip_count']
+    query = f"""
+        {selFrom(cols, year, taxi_type)}
+        WHERE (strftime('%Y', pickup_datetime))='{year}'
+        GROUP BY pu_location_id
+    """
+
+    return getDF(text(query))
+
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
@@ -373,7 +440,6 @@ class LinRegForecast:
 #     DR.setTable(year, taxi_type)
 #     table_name = DR.getTableName()
 #     O.out(f'table: {table_name}')
-#     uniq_table_name = DR.getTableName('uniq_')
 
 # ----------------------------------------------------------------------
 # (strftime('%Y-%m-%d %H', pickup_datetime)) as dt_hr,
@@ -403,13 +469,15 @@ class LinRegForecast:
 
 # DR.setTable(year, taxi_type)
 # table_name = DR.getTableName()
-# u_table_name = DR.getTableName('uniq_')
 
 # sql = f"""
-
+# select *,
+#     (unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) as trip_duration
+#  from {u_table_name} 
+#  where (strftime('%Y', pickup_datetime))='{year}' and
+#     trip_duration > 0 AND trip_duration <= 7200
 # """
 
-# getDF
-# runSql
+# df = getDF(text(sql))
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
