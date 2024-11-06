@@ -9,6 +9,7 @@ from sqlalchemy.sql import text
 import matplotlib.pyplot as plt
 import calendar
 from sklearn.model_selection import train_test_split
+import joblib
 
 warnings.filterwarnings("ignore")
 
@@ -21,6 +22,9 @@ MIN_YEAR = 2020
 MAX_YEAR = 2023
 # TABLE_FORMAT = 'simple_grid'
 TABLE_FORMAT = 'rst'
+
+# Models
+RANDOM_FOREST = 'random_forest'
 
 normalizedColumns = {
     'lpep_pickup_datetime': 'pickup_datetime', 'tpep_pickup_datetime': 'pickup_datetime',
@@ -41,35 +45,7 @@ normalizedColumns = {
     'congestion_surcharge': 'congestion_surcharge'
 }
 
-COLUMNS = [
-    'pickup_datetime', 'dropoff_datetime',
-    'pu_location_id', 'do_location_id',
-    'passenger_count', 'trip_distance', 'total_amount',
-    'fare_amount', 'tip_amount', 'mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 'congestion_surcharge',
-    'payment_type', 'ratecode_id'
-]
 
-ALL_COLUMNS = ['pickup_datetime',
- 'dropoff_datetime',
- 'pu_location_id',
- 'do_location_id',
- 'passenger_count',
- 'trip_distance',
- 'total_amount',
- 'fare_amount',
- 'tip_amount',
- 'mta_tax',
- 'tolls_amount',
- 'extra',
- 'improvement_surcharge',
- 'congestion_surcharge',
- 'payment_type',
- 'ratecode_id',
- 'f_trip_distance',
- 'f_fare_amount',
- 'f_mta_tax',
- 'f_total_amount',
- 'f_passenger_count']
 
 def getOutputPath(prefix = 'output'):
     today_date = datetime.datetime.today().strftime('%Y-%m-%d')
@@ -425,6 +401,38 @@ def getTripCountByPickup(year, taxi_type):
 
     return getDF(text(query))
 
+COMMON_FETCH_COLUMNS = ['pickup_datetime', 'pu_location_id', 'do_location_id', 'f_passenger_count', 'f_trip_distance', 'trip_duration', 'f_total_amount',
+ 'f_fare_amount', 'tip_amount', 'f_mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 'congestion_surcharge']
+
+def readData(cols = COMMON_FETCH_COLUMNS, conditions = [], taxi_type = YELLOW):
+    chunks = []
+    for year in range(MIN_YEAR, MAX_YEAR + 1):
+        base_condition = [f""" (strftime('%Y', pickup_datetime))='{year}' """]
+        all_conditions = base_condition + conditions
+        sql = text(f"""
+            {selFrom(cols, year, taxi_type)}
+            where {' AND '.join(all_conditions)}
+        """)
+
+        df = getDF(sql)
+        df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
+
+        print(len(df))
+
+        chunks.append(df)
+
+    return pd.concat(chunks, ignore_index=True)
+
+
+
+def buildModelPath(name):
+    return f'models/{name}_model.joblib'
+
+def storeModel(model, name):
+    joblib.dump(model, buildModelPath(name))
+
+def loadModel(name):
+    return joblib.load(buildModelPath(name))
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
