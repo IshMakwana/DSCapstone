@@ -23,8 +23,12 @@ MAX_YEAR = 2023
 # TABLE_FORMAT = 'simple_grid'
 TABLE_FORMAT = 'rst'
 
+# Caches
+BOX_PLOT_CACHE = 'box_plot_data'
+
 # Models
 RANDOM_FOREST = 'random_forest'
+LINEAR_REGRESSION = 'linear_regression'
 
 normalizedColumns = {
     'lpep_pickup_datetime': 'pickup_datetime', 'tpep_pickup_datetime': 'pickup_datetime',
@@ -283,6 +287,16 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
+LINREG_FEATS = [
+    'trip_duration', 'passenger_count', 'trip_distance', 
+    'tip_amount', 'tolls_amount', 'extra', 'mta_tax',
+    'improvement_surcharge', 'congestion_surcharge',
+ ]
+LINREG_DEP = 'total_amount'
+
+R_FRST_FTS = ['pu_location_id', 'do_location_id', 'passenger_count', 'trip_distance', 'trip_duration', 'tip_amount', 'mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 'congestion_surcharge']
+R_FRST_DEP = 'total_amount'
+
 def calculate_vif(X):
     vif = pd.DataFrame()
     vif["Feature"] = X.columns
@@ -304,17 +318,14 @@ class LinRegForecast:
         O.out("Selected Features after VIF Selection:")
         O.out(self.X.columns)
 
-        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.25)
+        # X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.20)
 
         # Train the linear regression model
         self.model = LinearRegression()
-        self.model.fit(X_train, y_train)
+        self.model.fit(self.X, self.y)
 
-        self.y_test = y_test
-        self.y_pred = self.model.predict(X_test)
-
-    def getPredNTest(self):
-        return self.y_pred, self.y_test
+    def getModel(self):
+        return self.model
 
     def stepwise_vif_selection(self, threshold=10):
         while True:
@@ -401,8 +412,9 @@ def getTripCountByPickup(year, taxi_type):
 
     return getDF(text(query))
 
-COMMON_FETCH_COLUMNS = ['pickup_datetime', 'pu_location_id', 'do_location_id', 'f_passenger_count', 'f_trip_distance', 'trip_duration', 'f_total_amount',
- 'f_fare_amount', 'tip_amount', 'f_mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 'congestion_surcharge']
+COMMON_FETCH_COLUMNS = ['pickup_datetime', 'pu_location_id', 'do_location_id', 'f_passenger_count', 'f_trip_distance', 'trip_duration', 
+                        'f_total_amount', 'f_fare_amount', 'tip_amount', 'f_mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 
+                        'congestion_surcharge']
 
 def readData(cols = COMMON_FETCH_COLUMNS, conditions = [], taxi_type = YELLOW):
     chunks = []
@@ -415,7 +427,8 @@ def readData(cols = COMMON_FETCH_COLUMNS, conditions = [], taxi_type = YELLOW):
         """)
 
         df = getDF(sql)
-        df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
+        if 'pickup_datetime' in cols:
+            df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
 
         print(len(df))
 
@@ -424,15 +437,35 @@ def readData(cols = COMMON_FETCH_COLUMNS, conditions = [], taxi_type = YELLOW):
     return pd.concat(chunks, ignore_index=True)
 
 
+OBJECT_TYPE_MAP = {
+    'cache': ('caches', '_cache'),
+    'model': ('models', '_model')
+}
 
-def buildModelPath(name):
-    return f'models/{name}_model.joblib'
+def buildObjectPath(name, type):
+    dir, suffix = OBJECT_TYPE_MAP[type]
+    return f'{dir}/{name}{suffix}.joblib'
 
 def storeModel(model, name):
-    joblib.dump(model, buildModelPath(name))
+    storeObject(model, name, 'model')
 
 def loadModel(name):
-    return joblib.load(buildModelPath(name))
+    return loadObject(name, 'model')
+
+def storeObject(object, name, type):
+    joblib.dump(object, buildObjectPath(name, type))
+
+def loadObject(name, type):
+    return joblib.load(buildObjectPath(name, type))
+
+def getSample(year = 2023, taxi_type = YELLOW, limit = 10**3):
+    sql = text(f"""
+        {selFrom(COMMON_FETCH_COLUMNS, year, taxi_type)}
+        where (strftime('%Y', pickup_datetime))='{year}'
+        order by random()
+        limit {limit}
+    """)
+    return getDF(sql)
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------
