@@ -166,5 +166,3 @@ db/*.db
 .DS_Store
 output/*.txt
 output/*.png
-
-models/*.joblib

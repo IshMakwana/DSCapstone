@@ -9,6 +9,7 @@ from sqlalchemy.sql import text
 import matplotlib.pyplot as plt
 import calendar
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
 import joblib
 
 warnings.filterwarnings("ignore")
@@ -141,6 +142,11 @@ selectMap = {
     'f_mta_tax': f'''f_mta_tax as mta_tax''',
     'f_total_amount': f'''f_total_amount as total_amount''',
     'f_passenger_count': f'''f_passenger_count as passenger_count''',
+    'trip_distance': f'''f_trip_distance as trip_distance''',
+    'fare_amount': f'''f_fare_amount as fare_amount''',
+    'mta_tax': f'''f_mta_tax as mta_tax''',
+    'total_amount': f'''f_total_amount as total_amount''',
+    'passenger_count': f'''f_passenger_count as passenger_count''',
 }
 
 def selFrom(cols, year, taxi_type):
@@ -466,6 +472,174 @@ def getSample(year = 2023, taxi_type = YELLOW, limit = 10**3):
         limit {limit}
     """)
     return getDF(sql)
+
+
+
+
+def todFromDate(date):
+    hr = date.hour
+    if hr < 6: return 'night'
+    elif 6 <= hr < 12: return 'morning'
+    elif 12 <= hr < 18: return 'afternoon'
+    return 'evening'
+
+BY_LOC_CATS = ['by_minute', 'by_hour', 'by_time_of_day', 'all']
+
+def getCatsAndCons(year, date, min_fmt=minute_format, hr_fmt=hour_format, day_fmt=day_format):
+    return [
+        ('by_minute', f'''   strftime('{min_fmt}', pickup_datetime)='{fmtDate(year, date, min_fmt)}'    '''),
+        ('by_hour', f'''   strftime('{hr_fmt}', pickup_datetime)='{fmtDate(year, date, hr_fmt)}'    '''),
+        (
+            'by_time_of_day', 
+            f''' 
+                time_of_day='{todFromDate(date)}' AND 
+                strftime('{day_fmt}', pickup_datetime)='{fmtDate(year, date, day_fmt)}'
+            '''
+        ),
+        ('all', None)
+    ]
+
+def displayByCat(data):
+    O.out(SEPARATOR)
+    for c in BY_LOC_CATS:
+        O.out(f'Category: {c}')
+        O.out(data[c], True, 10)
+        O.out(SEPARATOR)
+
+# we want to do predict total_amount
+def get_data_by_loc(pu_location_id, do_location_id, date, taxi_type = GREEN):
+    cols = [
+        'pu_location_id', 'pu_location',
+        'do_location_id', 'do_location',
+        'pickup_datetime', 'time_of_day', 
+        'trip_duration', 'trip_distance',
+        'total_amount', 'fare_amount', 
+        'tip_amount', 'tolls_amount', 'passenger_count',
+        'extra', 'fare_amount','mta_tax',
+        'improvement_surcharge','congestion_surcharge',
+    ]
+
+    chunks = {}
+    for c in BY_LOC_CATS:
+        chunks[c] = []
+
+    for y in range(MIN_YEAR, MAX_YEAR+1):
+        DR.setTable(y, taxi_type)
+        
+        for (cat, con) in getCatsAndCons(y, date):
+            conditions = [
+                f'''CAST(strftime('%Y', pickup_datetime) as integer)={y}''',
+                f'''pu_location_id={pu_location_id}''',
+                f'''do_location_id={do_location_id}'''
+            ]
+            if con is not None:
+                conditions.append(con)
+
+            sql = f'''
+            {selFrom(cols, y, taxi_type)}
+            WHERE {' AND '.join(conditions)}
+            '''
+            chunks[cat].append(getDF(text(sql)))
+    
+    for k in BY_LOC_CATS:
+        chunks[k] = pd.concat(chunks[k], ignore_index=True)
+        for intcol in ['trip_duration', 'passenger_count']:
+            chunks[k][intcol] = chunks[k][intcol].astype(float)
+
+    return chunks
+
+def out_sample_tt(train, test, label='', train_page_size=7, test_page_size=3):
+    O.out(f'{label} train data: ')
+    O.out(train, True, train_page_size)
+    O.out(f'{label} test data: ')
+    O.out(test, True, test_page_size)
+
+def display_computed_total_amount(data, taxi_type, msg):
+    # O.out(f'{taxi_type.capitalize()} Taxi computed_total_amount')
+    msg.append(f'{taxi_type.capitalize()} Taxi computed_total_amount')
+    data['computed_total_amount'] = data.apply(lambda row: compute_total_amount(row, taxi_type), axis=1)
+    train, test = train_test_split(data, test_size=0.1)
+    # out_sample_tt(train, test, 'total_amount')
+    actual, computed = test['total_amount'].median(), test['computed_total_amount'].median()
+    # O.out(f'Actual: {actual}, computed: {computed:.02f}')
+    msg.append(f'Actual: {actual}, computed: {computed:.02f}')
+
+def display_lin_reg(data, taxi_type, msg):
+    msg.append(f'{taxi_type.capitalize()} Taxi LINEAR REGRESSION Forecast')
+    # train vs test
+    X = data[LINREG_FEATS]
+    y = data[LINREG_DEP]
+    X_trn, X_tst, y_trn, y_tst = train_test_split(X, y, test_size=0.1, random_state=42)
+    model = LinearRegression()
+    model.fit(X_trn, y_trn)
+    pred = model.predict(X_tst)
+    actual, computed = np.median(pred), np.median(y_tst)
+    msg.append(f'Actual: {actual:.02f}, computed: {computed:.02f}')
+    return 0
+
+def display_rand_frst(data, taxi_type, msg):
+    msg.append(f'{taxi_type.capitalize()} Taxi RANDOM FOREST Forecast')
+    # train vs test
+    X = data[R_FRST_FTS]
+    y = data[R_FRST_DEP]
+    X_trn, X_tst, y_trn, y_tst = train_test_split(X, y, test_size=0.1, random_state=42)
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    model.fit(X_trn, y_trn)
+    pred = model.predict(X_tst)
+    actual, computed = np.median(pred), np.median(y_tst)
+    msg.append(f'Actual: {actual:.02f}, computed: {computed:.02f}')
+    return 0
+
+def predict_total_amount(green_bc, yellow_bc):
+    # make a table of all methods
+    # O.out(SEPARATOR)
+    SEPARATOR = '-' * 25
+    messages = {}
+    messages[GREEN] = []
+    messages[YELLOW] = []
+
+    for c in BY_LOC_CATS:
+        for type in [GREEN, YELLOW]:
+            messages[type].append('*' * 10)
+            messages[type].append(f'Category: {c}')
+            messages[type].append('*' * 10)
+
+        green_df = green_bc[c]
+        if len(green_df) > 1:
+            display_computed_total_amount(green_df, GREEN, messages[GREEN])
+            display_lin_reg(green_df, GREEN, messages[GREEN])
+            display_rand_frst(green_df, GREEN, messages[GREEN])
+        else:
+            messages[GREEN].append(f'Not enough data for {c}')
+        
+        messages[GREEN].append(SEPARATOR)
+            
+        yellow_df = yellow_bc[c]
+        if len(yellow_df) > 1:
+            display_computed_total_amount(yellow_df, YELLOW, messages[YELLOW])
+            display_lin_reg(yellow_df, YELLOW, messages[YELLOW])
+            display_rand_frst(yellow_df, YELLOW, messages[YELLOW])
+        else:
+            messages[YELLOW].append(f'Not enough data for {c}')
+        
+        messages[YELLOW].append(SEPARATOR)
+
+    return messages
+
+
+def displayPredictionByLocation(pickup, dropoff, pickup_datetime):
+    green_bc = get_data_by_loc(pu_location_id=pickup, do_location_id=dropoff, date=pickup_datetime, taxi_type= GREEN)
+    yellow_bc = get_data_by_loc(pu_location_id=pickup, do_location_id=dropoff, date=pickup_datetime, taxi_type= YELLOW)
+
+    return predict_total_amount(green_bc, yellow_bc)
+
+
+def getLocationOptions():
+    df = getDF(text('''
+                    SELECT location_id, (location_name || ', ' || zone) as f_location_name FROM taxi_zones
+                    ORDER BY f_location_name ASC
+                    '''))
+    return dict(zip(df["f_location_name"], df["location_id"]))
 
 # ----------------------------------------------------------------------
 # ----------------------------------------------------------------------

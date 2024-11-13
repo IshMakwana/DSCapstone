@@ -126,24 +126,18 @@ def getSummary():
         'yellow': loadObject(f'{YELLOW}_{BOX_PLOT_CACHE}', 'cache')
     }
     return summary
+
+
 # ---xx---
 st.set_page_config(layout="wide")
 available_years = [2020, 2021, 2022, 2023]
 
-# # Streamlit app title
-# st.title("NYC Taxi Trips Dashboard")
-# st.subheader("By Ishani Makwana")
-# Add title and author name in the sidebar
 st.sidebar.title("NYC Taxi Trips Dashboard")
 st.sidebar.markdown("<small>Author: Ishani Makwana</small>", unsafe_allow_html=True)
 
-# Sidebar separator
 st.sidebar.markdown("---")
 
-# Date range selection
-# st.sidebar.header("Select Date Range")
-
-section = st.sidebar.radio("Go to", ["Home", "Viz", "Modeling"])
+section = st.sidebar.radio("Go to", ["Home", "Viz", "Modeling", "Result"])
 
 if section == "Home":
     # green vs yellow taxi
@@ -167,8 +161,7 @@ if section == "Home":
         st.plotly_chart(y_fig, use_container_width=True)
 
     # show weekly average
-    # show by location
-    
+    # show by location 
 elif section == "Viz":
     # Split the Streamlit layout into two columns
 
@@ -210,5 +203,30 @@ elif section == "Modeling":
         st.plotly_chart(yellow_fig_lr, use_container_width=True)
         st.plotly_chart(yellow_fig_rf, use_container_width=True)
         st.plotly_chart(yellow_fig_table, use_container_width=True)
+elif section == "Result":
+    location_options = getLocationOptions()
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        pickup_location_label = st.selectbox("Pickup Location", options=list(location_options.keys()))
+    pickup_location_value = location_options[pickup_location_label]
+
+    with col2:
+        dropoff_location_label = st.selectbox("Dropoff Location", options=list(location_options.keys()))
+    dropoff_location_value = location_options[dropoff_location_label]
+
+    with col3:
+        pickup_date = st.date_input("Select Pickup Date", value=datetime.date.today())
+        pickup_time = st.time_input("Select Pickup Time", value=datetime.time(12, 0))
+    pickup_datetime = datetime.datetime.combine(pickup_date, pickup_time)
+
+    if st.button("Predict Fare"):
+        msgs = displayPredictionByLocation(pickup_location_value, dropoff_location_value, pickup_datetime)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(msgs[GREEN])
+        with col2:
+            st.write(msgs[YELLOW])
+
 else:
     st.header(f'Section: {section}')
