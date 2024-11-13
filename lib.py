@@ -569,7 +569,7 @@ def display_lin_reg(data, taxi_type, msg):
     # train vs test
     X = data[LINREG_FEATS]
     y = data[LINREG_DEP]
-    X_trn, X_tst, y_trn, y_tst = train_test_split(X, y, test_size=0.1, random_state=42)
+    X_trn, X_tst, y_trn, y_tst = train_test_split(X, y, test_size=0.1)
     model = LinearRegression()
     model.fit(X_trn, y_trn)
     pred = model.predict(X_tst)
@@ -582,7 +582,7 @@ def display_rand_frst(data, taxi_type, msg):
     # train vs test
     X = data[R_FRST_FTS]
     y = data[R_FRST_DEP]
-    X_trn, X_tst, y_trn, y_tst = train_test_split(X, y, test_size=0.1, random_state=42)
+    X_trn, X_tst, y_trn, y_tst = train_test_split(X, y, test_size=0.1)
     model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X_trn, y_trn)
     pred = model.predict(X_tst)
