@@ -31,27 +31,6 @@ BOX_PLOT_CACHE = 'box_plot_data'
 RANDOM_FOREST = 'random_forest'
 LINEAR_REGRESSION = 'linear_regression'
 
-normalizedColumns = {
-    'lpep_pickup_datetime': 'pickup_datetime', 'tpep_pickup_datetime': 'pickup_datetime',
-    'lpep_dropoff_datetime': 'dropoff_datetime', 'tpep_dropoff_datetime': 'dropoff_datetime',
-    'RatecodeID': 'ratecode_id',
-    'PULocationID': 'pu_location_id', 
-    'DOLocationID': 'do_location_id',
-    'passenger_count': 'passenger_count', 
-    'trip_distance': 'trip_distance', 
-    'fare_amount': 'fare_amount', 
-    'extra': 'extra', 
-    'mta_tax': 'mta_tax',
-    'tip_amount': 'tip_amount', 
-    'tolls_amount': 'tolls_amount', 
-    'improvement_surcharge': 'improvement_surcharge',
-    'total_amount': 'total_amount', 
-    'payment_type': 'payment_type', 
-    'congestion_surcharge': 'congestion_surcharge'
-}
-
-
-
 def getOutputPath(prefix = 'output'):
     today_date = datetime.datetime.today().strftime('%Y-%m-%d')
 
