@@ -40,7 +40,8 @@ def compute_total_amount(row, taxi_type=YELLOW):
     total_amount += 1.00
     
     # Time-based surcharges
-    pickup_time = datetime.datetime.strptime(pickup_datetime, '%Y-%m-%d %H:%M:%S.%f')
+    # pickup_time = datetime.datetime.strptime(pickup_datetime, '%Y-%m-%d %H:%M:%S.%f')
+    pickup_time = pickup_datetime
 
     # Overnight surcharge: $1.00 (8pm to 6am)
     if pickup_time.hour >= 20 or pickup_time.hour < 6:
@@ -115,7 +116,8 @@ def compute_fare_amount(row, taxi_type=YELLOW):
     fare_amount += 1.00
     
     # Time-based surcharges
-    pickup_time = datetime.datetime.strptime(pickup_datetime, '%Y-%m-%d %H:%M:%S.%f')
+    # pickup_time = datetime.datetime.strptime(pickup_datetime, '%Y-%m-%d %H:%M:%S.%f')
+    pickup_time = pickup_datetime
 
     # Overnight surcharge: $1.00 (8pm to 6am)
     if pickup_time.hour >= 20 or pickup_time.hour < 6:

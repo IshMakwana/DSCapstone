@@ -205,4 +205,4 @@ def errors(actual, prediction):
     rmse = np.sqrt(mean_squared_error(actual, prediction))
     mape = mean_absolute_percentage_error(actual, prediction) * 100
     r_squared = r2_score(actual, prediction) * 100
-    return [[f"{r_squared:.2f}", f"{mae:.2f}", f"{rmse:.2f}", f"{mape:.2f}"]]
+    return [f"{r_squared:.2f}", f"{mae:.2f}", f"{rmse:.2f}", f"{mape:.2f}"]

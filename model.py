@@ -188,7 +188,7 @@ def findBestResult(data):
 # what does this do
 # input: ??
 # output: ??
-def displayPredictionByLocation(pickup, dropoff, pickup_datetime):
+def displayPredictionByLocation(pickup, dropoff):
     data = {}
     for tt in [GREEN, YELLOW]:
         data[tt] = dataByLocations(pickup, dropoff, tt)

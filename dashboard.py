@@ -81,10 +81,10 @@ def buildComparison(data, taxi_type):
     X_LR, y_LR = data[FEATURES], data[VARIABLE] 
     X_RFR, y_RFR = data[FEATURES], data[VARIABLE]
     
-    lr_model = loadModel(f'{taxi_type}_{LINEAR_REGRESSION}')
+    lr_model = loadModel(f'{taxi_type}_{VARIABLE}_{LINEAR_REGRESSION}')
     y_pred_lr = lr_model.predict(X_LR)
     
-    rf_model = loadModel(f'{taxi_type}_{RANDOM_FOREST}')
+    rf_model = loadModel(f'{taxi_type}_{VARIABLE}_{RANDOM_FOREST}')
     y_pred_rf = rf_model.predict(X_RFR)
     
     fig_lr = goLinePlot(f"{taxi_type.capitalize()} Taxi - Linear Regression Forecast", 
