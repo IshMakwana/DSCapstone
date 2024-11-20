@@ -23,6 +23,7 @@ polygon_gdf = getTaxiGDF()
 # ------------------------------------------------------------------------------------------------
 # Helper Functions
 # ------------------------------------------------------------------------------------------------
+# @st.cache_data
 def goLinePlot(title, x_label, y_label, x, y1, y2):
     fig_lr = go.Figure()
     fig_lr.add_trace(go.Scatter(x=x, y=y1, mode='lines+markers', name="Actual", line=dict(color='blue')))
@@ -36,6 +37,7 @@ def goLinePlot(title, x_label, y_label, x, y1, y2):
     )
     return fig_lr
 
+# @st.cache_data
 def goMapPlot(trips_by_location, taxi_type):
         merged_gdf = polygon_gdf.merge(trips_by_location, how='left', left_on='location_id', right_on='pu_location_id')
         # merged_gdf['trip_count'] = merged_gdf['trip_count'].fillna(0) 
@@ -59,6 +61,7 @@ def goMapPlot(trips_by_location, taxi_type):
 
         return fig
 
+# @st.cache_data
 def goBoxPlot(stats, taxi_type, feature):
     fig = go.Figure()
     fig.add_trace(go.Box(
@@ -73,6 +76,7 @@ def goBoxPlot(stats, taxi_type, feature):
     )
     return fig
 
+# @st.cache_data
 def buildComparison(data, taxi_type):
     X_LR, y_LR = data[FEATURES], data[VARIABLE] 
     X_RFR, y_RFR = data[FEATURES], data[VARIABLE]
@@ -104,13 +108,28 @@ def buildComparison(data, taxi_type):
 
 
 # ------------------------------------------------------------------------------------------------
+# Cached Data
+# ------------------------------------------------------------------------------------------------
+@st.cache_data
+def getSampleData(taxi_type):
+    return getSample(2023, taxi_type, 150)
+
+@st.cache_data
+def getTripData(year, taxi_type):
+    return getTripCountByPickup(year, taxi_type)
+
+@st.cache_data
+def getBoxPlotData(taxi_type):
+    return loadObject(f'{taxi_type}_{BOX_PLOT_CACHE}', 'cache')
+
+# ------------------------------------------------------------------------------------------------
 # Section Renderers
 # ------------------------------------------------------------------------------------------------
 # GENERAL
 def renderGeneral():
     summary = {
-        'green': loadObject(f'{GREEN}_{BOX_PLOT_CACHE}', 'cache'),
-        'yellow': loadObject(f'{YELLOW}_{BOX_PLOT_CACHE}', 'cache')
+        'green': getBoxPlotData(GREEN),
+        'yellow': getBoxPlotData(YELLOW)
     }
     features = summary[GREEN].keys()
 
@@ -138,11 +157,11 @@ def renderMaps():
     col1, col2 = st.columns(2)
 
     data = {}
-    data[GREEN] = getTripCountByPickup(year, GREEN)
-    data[YELLOW] = getTripCountByPickup(year, YELLOW)
+    data[GREEN] = getTripData(year, GREEN)
+    data[YELLOW] = getTripData(year, YELLOW)
     
-    col1.plotly_chart(goMapPlot(data[GREEN], GREEN, col1))
-    col2.plotly_chart(goMapPlot(data[YELLOW], YELLOW, col2))
+    col1.plotly_chart(goMapPlot(data[GREEN], GREEN))
+    col2.plotly_chart(goMapPlot(data[YELLOW], YELLOW))
 
 # COMPARE
 def renderComparison():
@@ -151,7 +170,7 @@ def renderComparison():
     with col1:
         st.write("## Green Taxi Forecast")
         # get ransom sample of n rows by taxi_type
-        df = getSample(2023, GREEN, 150)
+        df = getSampleData(GREEN)
         green_fig_lr, green_fig_rf, green_fig_table = buildComparison(df, GREEN)
         st.plotly_chart(green_fig_lr, use_container_width=True)
         st.plotly_chart(green_fig_rf, use_container_width=True)
@@ -159,7 +178,7 @@ def renderComparison():
         
     with col2:
         st.write("## Yellow Taxi Forecast")
-        df = getSample(2023, YELLOW, 150)
+        df = getSampleData(YELLOW)
         yellow_fig_lr, yellow_fig_rf, yellow_fig_table = buildComparison(df, YELLOW)
         st.plotly_chart(yellow_fig_lr, use_container_width=True)
         st.plotly_chart(yellow_fig_rf, use_container_width=True)
