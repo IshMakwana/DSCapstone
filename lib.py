@@ -1,25 +1,25 @@
+
+
+# from sqlalchemy.sql import text
+# import matplotlib.pyplot as plt
+# import calendar
+# import geopandas as gpd
+# from shapely import wkt
+# import statsmodels.api as sm
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+# from sklearn.ensemble import RandomForestRegressor
+
+import joblib
 import warnings
-import pandas as pd
 import datetime
 from tabulate import tabulate
 from sqlalchemy import MetaData
 from sqlalchemy import create_engine
-import numpy as np
-from sqlalchemy.sql import text
-import matplotlib.pyplot as plt
-import calendar
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-import joblib
-
-import statsmodels.api as sm
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-
-import geopandas as gpd
-from shapely import wkt
+from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
+from sklearn.metrics import r2_score
 
 warnings.filterwarnings("ignore")
 
@@ -200,3 +200,9 @@ def todFromDate(date):
     return 'evening'
 
 
+def errors(actual, prediction):
+    mae = mean_absolute_error(actual, prediction)
+    rmse = np.sqrt(mean_squared_error(actual, prediction))
+    mape = mean_absolute_percentage_error(actual, prediction) * 100
+    r_squared = r2_score(actual, prediction) * 100
+    return [[f"{r_squared:.2f}", f"{mae:.2f}", f"{rmse:.2f}", f"{mape:.2f}"]]

@@ -1,4 +1,5 @@
 from lib import *
+from sqlalchemy.sql import text
 
 def getManhattanLocIds():
     df = getDF(text(f'select location_id from taxi_zones where location_name=\'Manhattan\''))

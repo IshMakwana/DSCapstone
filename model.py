@@ -1,8 +1,11 @@
-from statsmodels.stats.outliers_influence import variance_inflation_factor
-from sklearn.metrics import r2_score
 from lib import *
 from data import *
 from computed import *
+
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+import statsmodels.api as sm
 
 # Calculates VIF for all features in X
 # input: dataframe with all features

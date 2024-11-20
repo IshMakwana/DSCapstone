@@ -1,4 +1,7 @@
 from lib import *
+from sqlalchemy.sql import text
+import geopandas as gpd
+from shapely import wkt
 
 # Prepares and returns a GeoPandas dataframe containing taxi zone geometry
 # input: none
@@ -117,3 +120,12 @@ def getTripsForDateRange(start_date, end_date, columns, taxi_type):
 
     return result_df
 
+# Returns Location Name vs Location ID for the dashboard
+# input: n/a
+# output: a dictionary of location name vs location id
+def getLocationOptions():
+    df = getDF(text('''
+                    SELECT location_id, (location_name || ', ' || zone) as f_location_name FROM taxi_zones
+                    ORDER BY f_location_name ASC
+                    '''))
+    return dict(zip(df["f_location_name"], df["location_id"]))
