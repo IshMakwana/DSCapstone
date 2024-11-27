@@ -168,3 +168,5 @@ output/*.txt
 output/*.png
 
 archive/*
+
+pg*.ipynb
