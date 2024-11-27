@@ -187,10 +187,10 @@ def loadObject(name, type):
 
 def commonConditions(year):
     return [f""" (strftime('%Y', pickup_datetime))='{year}' """, 
-                          'passenger_count > 0',
-                          'trip_distance > 0',
-                          'fare_amount > 0',
-                          'trip_duration > 0']
+                          'f_passenger_count > 0',
+                          'f_trip_distance > 0',
+                          'f_fare_amount > 0',
+                          'dropoff_datetime > pickup_datetime']
 
 def todFromDate(date):
     hr = date.hour

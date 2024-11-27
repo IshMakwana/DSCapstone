@@ -42,13 +42,14 @@ def getSample(year = 2023, taxi_type = YELLOW, limit = 10**3):
 # Returns data for all years for either green or yellow taxi trips
 # input: cols to fetch, conditions and taxi_type
 # output: dataframe containing specified cols for all years (2020-2023)
-def readData(cols = COMMON_FETCH_COLUMNS, conditions = [], taxi_type = YELLOW):
+def readData(cols = COMMON_FETCH_COLUMNS, conditions = [], taxi_type = YELLOW, grp_ord_by = ''):
     chunks = []
     for year in range(MIN_YEAR, MAX_YEAR + 1):
         all_conditions = commonConditions(year) + conditions
+        where_clause = f'''where {' AND '.join(all_conditions)}''' 
+
         sql = text(f"""
-            {selFrom(cols, year, taxi_type)}
-            where {' AND '.join(all_conditions)}
+            {selFrom(cols, year, taxi_type)} {where_clause} {grp_ord_by}
         """)
 
         df = getDF(sql)
@@ -56,7 +57,6 @@ def readData(cols = COMMON_FETCH_COLUMNS, conditions = [], taxi_type = YELLOW):
             df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
 
         print(len(df))
-
         chunks.append(df)
 
     return pd.concat(chunks, ignore_index=True)
@@ -129,3 +129,76 @@ def getLocationOptions():
                     ORDER BY f_location_name ASC
                     '''))
     return dict(zip(df["f_location_name"], df["location_id"]))
+
+
+# # write a function to store result of a sql, a dataframe as a cache with given name
+def cacheSql(sql_obj, name, taxi_type):
+    # get dataframe from sql
+    df = readData(cols=sql_obj['cols'], 
+                  conditions = sql_obj['conditions'], 
+                  grp_ord_by = sql_obj['grp_ord_by'], 
+                  taxi_type=taxi_type)
+    
+    # store dataframe as cache
+    storeObject(df, f'{taxi_type}_{name}', 'cache')
+
+def getCachedSql(name, taxi_type):
+    return loadObject(f'{taxi_type}_{name}', 'cache')
+
+# write sql for weekly data
+# name: daily_avgs
+DAILY_AVGS = {
+    'cols': [
+        'DATE(pickup_datetime) AS day',
+        f'''
+            CASE STRFTIME('%w', pickup_datetime)
+                WHEN '0' THEN 'Sunday'
+                WHEN '1' THEN 'Monday'
+                WHEN '2' THEN 'Tuesday'
+                WHEN '3' THEN 'Wednesday'
+                WHEN '4' THEN 'Thursday'
+                WHEN '5' THEN 'Friday'
+                WHEN '6' THEN 'Saturday'
+            END AS day_of_week
+        ''',
+        'AVG(f_total_amount) AS avg_total_amount',
+        'AVG(f_fare_amount) AS avg_fare_amount',
+        'AVG(tip_amount) AS avg_tip_amount',
+        'SUM(f_passenger_count) AS sum_passenger_count',
+        f'''
+            AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
+        ''',
+        'COUNT(1) AS trip_count',
+        ],
+    'conditions': [],
+    'grp_ord_by': f'GROUP BY day ORDER BY day', 
+}
+
+# cacheSql(DAILY_AVGS, 'daily_avgs', GREEN)
+# cacheSql(DAILY_AVGS, 'daily_avgs', YELLOW)
+
+# write sql for hourly data
+# name: hourly_avgs
+HOURLY_AVGS = {
+    'cols': [
+        f'''
+            strftime('{hour_format}', pickup_datetime) AS hour
+        ''',
+        f'''
+            strftime('%H', pickup_datetime) AS hour_of_day
+        ''',
+        'AVG(f_total_amount) AS avg_total_amount',
+        'AVG(f_fare_amount) AS avg_fare_amount',
+        'AVG(tip_amount) AS avg_tip_amount',
+        'SUM(f_passenger_count) AS sum_passenger_count',
+        f'''
+            AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
+        ''',
+        'COUNT(1) AS trip_count',
+    ],
+    'conditions': [],
+    'grp_ord_by': f'GROUP BY hour ORDER BY hour'
+}
+
+# cacheSql(HOURLY_AVGS, 'hourly_avgs', GREEN)
+# cacheSql(HOURLY_AVGS, 'hourly_avgs', YELLOW)

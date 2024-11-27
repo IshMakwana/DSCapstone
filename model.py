@@ -46,6 +46,13 @@ FEATURES = ['pu_location_id', 'do_location_id', 'passenger_count', 'trip_distanc
             'trip_duration', 'tip_amount', 'mta_tax', 'tolls_amount', 'extra', 
             'improvement_surcharge', 'congestion_surcharge']
 
+FEATURES_SET1 = ['trip_distance', 'trip_duration', 
+               'tip_amount', 'mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 'congestion_surcharge']
+SUFFIX_SET1 = '_f_set1'
+
+FEATURES_SET2 = ['trip_distance', 'trip_duration', 'tip_amount', 'tolls_amount']
+SUFFIX_SET2 = '_f_set2'
+
 VARIABLE = 'fare_amount'
 
 def commonConditions(year):
@@ -58,7 +65,7 @@ def commonConditions(year):
 # Builds LinearRegression model for trips from 2020-2023 for either green or yellow taxi
 # input: taxi_type (green or hellow), features, variable, columns
 # output: a persisted model stored in a file locally - path template: f'{taxi_type}_{variable}_{LINEAR_REGRESSION}'
-def buildAndStoreModel_lr(taxi_type, features, variable, columns):
+def buildAndStoreModel_lr(taxi_type, features, variable, columns, suffix = ''):
     model = LinearRegression()
     chunks = 0
     
@@ -80,13 +87,13 @@ def buildAndStoreModel_lr(taxi_type, features, variable, columns):
                 model.fit(X, y)
             O.out(SEPARATOR)
 
-    storeModel(model, f'{taxi_type}_{variable}_{LINEAR_REGRESSION}')
+    storeModel(model, f'{taxi_type}_{variable}_{LINEAR_REGRESSION}{suffix}')
     
 
 # Builds RandomForestRegressor model for trips from 2020-2023 for either green or yellow taxi
 # input: taxi_type (green or hellow), features, variable, columns
 # output: a persisted model stored in a file locally - path template: f'{taxi_type}_{variable}_{LINEAR_REGRESSION}'
-def buildAndStoreModel_rfr(taxi_type, features, variable, columns):
+def buildAndStoreModel_rfr(taxi_type, features, variable, columns, suffix = ''):
     model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
     chunks = 0
     
@@ -108,7 +115,7 @@ def buildAndStoreModel_rfr(taxi_type, features, variable, columns):
                 model.fit(X, y)
             O.out(SEPARATOR)
 
-    storeModel(model, f'{taxi_type}_{variable}_{RANDOM_FOREST}')
+    storeModel(model, f'{taxi_type}_{variable}_{RANDOM_FOREST}{suffix}')
 
 # Returns computed result vs actual with accuracy
 # input: data (a dataframe) and taxi_type
