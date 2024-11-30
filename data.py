@@ -147,6 +147,7 @@ def getCachedSql(name, taxi_type):
 
 # write sql for weekly data
 # name: daily_avgs
+DAILY_AVGS_CACHE = 'daily_avgs'
 DAILY_AVGS = {
     'cols': [
         'DATE(pickup_datetime) AS day',
@@ -177,15 +178,24 @@ DAILY_AVGS = {
 # cacheSql(DAILY_AVGS, 'daily_avgs', GREEN)
 # cacheSql(DAILY_AVGS, 'daily_avgs', YELLOW)
 
+
+# strftime('%H', pickup_datetime) AS hour_of_day
+
 # write sql for hourly data
 # name: hourly_avgs
+HOURLY_AVGS_CACHE = 'hourly_avgs'
 HOURLY_AVGS = {
     'cols': [
         f'''
             strftime('{hour_format}', pickup_datetime) AS hour
         ''',
         f'''
-            strftime('%H', pickup_datetime) AS hour_of_day
+            CASE
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 0 AND 5 THEN 'Night'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 6 AND 11 THEN 'Morning'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 12 AND 17 THEN 'Afternoon'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 18 AND 23 THEN 'Evening'
+            END AS time_of_day
         ''',
         'AVG(f_total_amount) AS avg_total_amount',
         'AVG(f_fare_amount) AS avg_fare_amount',
