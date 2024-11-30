@@ -1,15 +1,3 @@
-
-
-# from sqlalchemy.sql import text
-# import matplotlib.pyplot as plt
-# import calendar
-# import geopandas as gpd
-# from shapely import wkt
-# import statsmodels.api as sm
-# from sklearn.model_selection import train_test_split
-# from sklearn.linear_model import LinearRegression
-# from sklearn.ensemble import RandomForestRegressor
-
 import joblib
 import warnings
 import datetime
