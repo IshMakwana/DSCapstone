@@ -100,7 +100,8 @@ day_format = '%Y-%m-%d'
 selectMap = {
     'pu_location': f'''(select (zone||', '||location_name) from taxi_zones where location_id=pu_location_id limit 1) as pu_location''',
     'do_location': f'''(select (zone||', '||location_name) from taxi_zones where location_id=do_location_id limit 1) as do_location''',
-    'time_of_day': f'''CASE  
+    'time_of_day': f'''
+        CASE  
             WHEN CAST(strftime('%H', pickup_datetime) as integer) < 6
                 THEN 'night' 
             WHEN CAST(strftime('%H', pickup_datetime) as integer) >= 6 AND CAST(strftime('%H', pickup_datetime) as integer) < 12
@@ -108,19 +109,31 @@ selectMap = {
             WHEN CAST(strftime('%H', pickup_datetime) as integer) >= 12 AND CAST(strftime('%H', pickup_datetime) as integer) < 18
                 THEN 'afternoon'
             ELSE 'evening' 
-        END time_of_day''',
+        END time_of_day
+        ''',
+    'day_of_week': f'''
+        CASE STRFTIME('%w', pickup_datetime)
+            WHEN '0' THEN 'Sunday'
+            WHEN '1' THEN 'Monday'
+            WHEN '2' THEN 'Tuesday'
+            WHEN '3' THEN 'Wednesday'
+            WHEN '4' THEN 'Thursday'
+            WHEN '5' THEN 'Friday'
+            WHEN '6' THEN 'Saturday'
+        END AS day_of_week
+        ''',
     'trip_duration': f'''(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) as trip_duration''',
     'year': f'''CAST(strftime('%Y', pickup_datetime) as integer) as year''',
-    'f_trip_distance': f'''f_trip_distance as trip_distance''',
-    'f_fare_amount': f'''f_fare_amount as fare_amount''',
-    'f_mta_tax': f'''f_mta_tax as mta_tax''',
-    'f_total_amount': f'''f_total_amount as total_amount''',
-    'f_passenger_count': f'''f_passenger_count as passenger_count''',
-    'trip_distance': f'''f_trip_distance as trip_distance''',
-    'fare_amount': f'''f_fare_amount as fare_amount''',
-    'mta_tax': f'''f_mta_tax as mta_tax''',
-    'total_amount': f'''f_total_amount as total_amount''',
-    'passenger_count': f'''f_passenger_count as passenger_count''',
+    # 'f_trip_distance': f'''f_trip_distance as trip_distance''',
+    # 'f_fare_amount': f'''f_fare_amount as fare_amount''',
+    # 'f_mta_tax': f'''f_mta_tax as mta_tax''',
+    # 'f_total_amount': f'''f_total_amount as total_amount''',
+    # 'f_passenger_count': f'''f_passenger_count as passenger_count''',
+    # 'trip_distance': f'''f_trip_distance as trip_distance''',
+    # 'fare_amount': f'''f_fare_amount as fare_amount''',
+    # 'mta_tax': f'''f_mta_tax as mta_tax''',
+    # 'total_amount': f'''f_total_amount as total_amount''',
+    # 'passenger_count': f'''f_passenger_count as passenger_count''',
 }
 
 def selFrom(cols, year, taxi_type):
@@ -175,9 +188,10 @@ def loadObject(name, type):
 
 def commonConditions(year):
     return [f""" (strftime('%Y', pickup_datetime))='{year}' """, 
-                          'f_passenger_count > 0',
-                          'f_trip_distance > 0',
-                          'f_fare_amount > 0',
+                          'passenger_count > 0',
+                          'trip_distance > 0',
+                          'fare_amount > 0',
+                        #   'total_amount > 0',
                           'dropoff_datetime > pickup_datetime']
 
 def todFromDate(date):

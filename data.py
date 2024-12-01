@@ -166,6 +166,8 @@ DAILY_AVGS = {
         'AVG(f_fare_amount) AS avg_fare_amount',
         'AVG(tip_amount) AS avg_tip_amount',
         'SUM(f_passenger_count) AS sum_passenger_count',
+        'AVG(f_trip_distance) as avg_trip_distance',
+        'AVG(tolls_amount) as avg_tolls_amount',
         f'''
             AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
         ''',
@@ -174,9 +176,6 @@ DAILY_AVGS = {
     'conditions': [],
     'grp_ord_by': f'GROUP BY day ORDER BY day', 
 }
-
-# cacheSql(DAILY_AVGS, 'daily_avgs', GREEN)
-# cacheSql(DAILY_AVGS, 'daily_avgs', YELLOW)
 
 
 # strftime('%H', pickup_datetime) AS hour_of_day
@@ -201,6 +200,8 @@ HOURLY_AVGS = {
         'AVG(f_fare_amount) AS avg_fare_amount',
         'AVG(tip_amount) AS avg_tip_amount',
         'SUM(f_passenger_count) AS sum_passenger_count',
+        'AVG(f_trip_distance) as avg_trip_distance',
+        'AVG(tolls_amount) as avg_tolls_amount',
         f'''
             AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
         ''',
@@ -210,5 +211,58 @@ HOURLY_AVGS = {
     'grp_ord_by': f'GROUP BY hour ORDER BY hour'
 }
 
-# cacheSql(HOURLY_AVGS, 'hourly_avgs', GREEN)
-# cacheSql(HOURLY_AVGS, 'hourly_avgs', YELLOW)
+
+# cacheSql(DAILY_AVGS, DAILY_AVGS_CACHE, GREEN)
+# cacheSql(DAILY_AVGS, DAILY_AVGS_CACHE, YELLOW)
+# cacheSql(HOURLY_AVGS, HOURLY_AVGS_CACHE, GREEN)
+# cacheSql(HOURLY_AVGS, HOURLY_AVGS_CACHE, YELLOW)
+
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import math
+from model import *
+from data import *
+
+def getSqlForModeling(taxi_type, isTrain):
+    trip_count = {
+        "green": 3071981,
+        "yellow": 120393705
+    }
+    train_size = {
+        "green": math.floor(0.8 * trip_count[GREEN]),
+        "yellow": math.floor(0.8 * trip_count[YELLOW])
+    }
+    test_size = {
+        "green": trip_count[GREEN] - train_size[GREEN],
+        "yellow": trip_count[YELLOW] - train_size[YELLOW],
+    }
+
+    columns = COMMON_FETCH_COLUMNS 
+    
+    # init with limit clause for test
+    limit_clause = f'LIMIT {test_size[taxi_type]} OFFSET {train_size[taxi_type]}'
+    
+    if isTrain:
+        limit_clause = f'LIMIT {train_size[taxi_type]}'
+    
+    sql = f'''
+        {selFrom(columns, 2020, taxi_type)}
+        WHERE {' AND '.join(commonConditions(2020))}
+        UNION ALL
+        {selFrom(columns, 2021, taxi_type)}
+        WHERE {' AND '.join(commonConditions(2021))}
+        UNION ALL
+        {selFrom(columns, 2022, taxi_type)}
+        WHERE {' AND '.join(commonConditions(2022))}
+        UNION ALL
+        {selFrom(columns, 2023, taxi_type)}
+        WHERE {' AND '.join(commonConditions(2023))}
+        {limit_clause}
+    '''
+
+    return text(sql)
+
+# getSqlForModeling(GREEN, isTrain=False)

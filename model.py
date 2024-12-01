@@ -201,3 +201,56 @@ def displayPredictionByLocation(pickup, dropoff):
         data[tt] = dataByLocations(pickup, dropoff, tt)
 
     return findBestResult(data)
+
+
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+import plotly.graph_objects as go
+
+def showPerformance(y_test, y_pred):
+    # Calculate Model Accuracy Metrics
+    mae = mean_absolute_error(y_test, y_pred)
+    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    r2 = r2_score(y_test, y_pred)
+
+    print(f"Model Accuracy Metrics:")
+    print(f"Mean Absolute Error (MAE): {mae:.2f}")
+    print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
+    print(f"R-squared (Accuracy): {r2:.2f}")
+
+    # Limit data to 150 samples for visualization
+    samples_to_plot = 150
+    y_test_limited = y_test[:samples_to_plot].reset_index(drop=True)
+    y_pred_limited = y_pred[:samples_to_plot]
+
+    # Create Line Chart with Plotly
+    fig = go.Figure()
+
+    # Actual Values
+    fig.add_trace(go.Scatter(
+        x=y_test_limited.index, 
+        y=y_test_limited, 
+        mode="lines+markers", 
+        name="Actual",
+        line=dict(color="blue")
+    ))
+
+    # Predicted Values
+    fig.add_trace(go.Scatter(
+        x=y_test_limited.index, 
+        y=y_pred_limited, 
+        mode="lines+markers", 
+        name="Predicted",
+        line=dict(color="orange")
+    ))
+
+    # Customize Layout
+    fig.update_layout(
+        title="Actual vs Predicted Fare Amount (Limited to 150 Samples)",
+        xaxis_title="Sample Index",
+        yaxis_title="Fare Amount ($)",
+        legend=dict(x=0.5, y=1.15, xanchor="center", yanchor="top"),
+        template="plotly_white"
+    )
+
+    # Show the plot
+    fig.show()
