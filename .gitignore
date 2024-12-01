@@ -168,5 +168,6 @@ output/*.txt
 output/*.png
 
 archive/*
+models/*
 
 pg*.ipynb
