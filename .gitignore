@@ -170,4 +170,4 @@ output/*.png
 archive/*
 models/*
 
-pg*.ipynb
+pg[0-9]+.ipynb
