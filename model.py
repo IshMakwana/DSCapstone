@@ -55,13 +55,6 @@ SUFFIX_SET2 = '_f_set2'
 
 VARIABLE = 'fare_amount'
 
-def commonConditions(year):
-    return [f""" (strftime('%Y', pickup_datetime))='{year}' """, 
-                          'passenger_count > 0',
-                          'trip_distance > 0',
-                          'fare_amount > 0',
-                          'trip_duration > 0']
-
 # Builds LinearRegression model for trips from 2020-2023 for either green or yellow taxi
 # input: taxi_type (green or hellow), features, variable, columns
 # output: a persisted model stored in a file locally - path template: f'{taxi_type}_{variable}_{LINEAR_REGRESSION}'

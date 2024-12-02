@@ -162,11 +162,11 @@ DAILY_AVGS = {
                 WHEN '6' THEN 'Saturday'
             END AS day_of_week
         ''',
-        'AVG(f_total_amount) AS avg_total_amount',
-        'AVG(f_fare_amount) AS avg_fare_amount',
+        'AVG(total_amount) AS avg_total_amount',
+        'AVG(fare_amount) AS avg_fare_amount',
         'AVG(tip_amount) AS avg_tip_amount',
-        'SUM(f_passenger_count) AS sum_passenger_count',
-        'AVG(f_trip_distance) as avg_trip_distance',
+        'SUM(passenger_count) AS sum_passenger_count',
+        'AVG(trip_distance) as avg_trip_distance',
         'AVG(tolls_amount) as avg_tolls_amount',
         f'''
             AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
@@ -196,11 +196,11 @@ HOURLY_AVGS = {
                 WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 18 AND 23 THEN 'Evening'
             END AS time_of_day
         ''',
-        'AVG(f_total_amount) AS avg_total_amount',
-        'AVG(f_fare_amount) AS avg_fare_amount',
+        'AVG(total_amount) AS avg_total_amount',
+        'AVG(fare_amount) AS avg_fare_amount',
         'AVG(tip_amount) AS avg_tip_amount',
-        'SUM(f_passenger_count) AS sum_passenger_count',
-        'AVG(f_trip_distance) as avg_trip_distance',
+        'SUM(passenger_count) AS sum_passenger_count',
+        'AVG(trip_distance) as avg_trip_distance',
         'AVG(tolls_amount) as avg_tolls_amount',
         f'''
             AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
@@ -211,11 +211,71 @@ HOURLY_AVGS = {
     'grp_ord_by': f'GROUP BY hour ORDER BY hour'
 }
 
+# avg fields by pickup location and time of day
+PU_TIME_AVGS_CACHE = 'pu_time_avgs'
+PU_TIME_AVGS = {
+    'cols': [
+        'pu_location_id','pu_location',
+        f'''
+            CASE
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 0 AND 5 THEN 'Night'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 6 AND 11 THEN 'Morning'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 12 AND 17 THEN 'Afternoon'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 18 AND 23 THEN 'Evening'
+            END AS time_of_day
+        ''',
+        'AVG(total_amount) AS avg_total_amount',
+        'AVG(fare_amount) AS avg_fare_amount',
+        'AVG(tip_amount) AS avg_tip_amount',
+        'SUM(passenger_count) AS sum_passenger_count',
+        'AVG(trip_distance) as avg_trip_distance',
+        'AVG(tolls_amount) as avg_tolls_amount',
+        f'''
+            AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
+        ''',
+        'COUNT(1) AS trip_count',
+    ],
+    'conditions': ['total_amount > 0'],
+    'grp_ord_by': f'GROUP BY pu_location_id, time_of_day ORDER BY pu_location_id, time_of_day'
+}
+
+PU_DO_TIME_AVGS_CACHE = 'pu_do_time_avgs'
+PU_DO_TIME_AVGS = {
+    'cols': [
+        'pu_location_id',
+        'do_location_id',
+        f'''
+            CASE
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 0 AND 5 THEN 'Night'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 6 AND 11 THEN 'Morning'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 12 AND 17 THEN 'Afternoon'
+                WHEN CAST(strftime('%H', pickup_datetime) AS INTEGER) BETWEEN 18 AND 23 THEN 'Evening'
+            END AS time_of_day
+        ''',
+        'AVG(total_amount) AS avg_total_amount',
+        'AVG(fare_amount) AS avg_fare_amount',
+        'AVG(tip_amount) AS avg_tip_amount',
+        'SUM(passenger_count) AS sum_passenger_count',
+        'AVG(trip_distance) as avg_trip_distance',
+        'AVG(tolls_amount) as avg_tolls_amount',
+        f'''
+            AVG(unixepoch(dropoff_datetime)-unixepoch(pickup_datetime)) / 60 as avg_trip_duration
+        ''',
+        'COUNT(1) AS trip_count',
+    ],
+    'conditions': ['total_amount > 0'],
+    'grp_ord_by': f'GROUP BY pu_location_id, do_location_id, time_of_day ORDER BY pu_location_id, do_location_id, time_of_day'
+}
+
 
 # cacheSql(DAILY_AVGS, DAILY_AVGS_CACHE, GREEN)
 # cacheSql(DAILY_AVGS, DAILY_AVGS_CACHE, YELLOW)
 # cacheSql(HOURLY_AVGS, HOURLY_AVGS_CACHE, GREEN)
 # cacheSql(HOURLY_AVGS, HOURLY_AVGS_CACHE, YELLOW)
+# cacheSql(PU_TIME_AVGS, PU_TIME_AVGS_CACHE, GREEN)
+# cacheSql(PU_TIME_AVGS, PU_TIME_AVGS_CACHE, YELLOW)
+# cacheSql(PU_DO_TIME_AVGS, PU_DO_TIME_AVGS_CACHE, GREEN)
+# cacheSql(PU_DO_TIME_AVGS, PU_DO_TIME_AVGS_CACHE, YELLOW)
 
 
 import pandas as pd
