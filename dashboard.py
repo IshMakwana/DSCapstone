@@ -10,6 +10,7 @@ import json
 GENERAL = 'Home'
 MAPS = 'Viz'
 COMPARE = 'Modeling'
+RESIDUALS = 'Residual Analysis'
 RESULT = 'Result'
 
 available_years = [2020, 2021, 2022, 2023]
@@ -290,15 +291,15 @@ def getTripFareEst(pu_location_id, do_location_id, time_of_day):
     elif len(data[GREEN]) == 0:
         yfa = data[YELLOW]['avg_fare_amount'].iloc[0]
         return [
-            '## Yellow Taxis will be available for this trip.',
-            f'## Expect the fare amount to be ~{yfa:.2f}'
+            f'## Expect the fare amount to be ~{yfa:.2f} with a Yellow Taxi.',
+            '### Yellow Taxis will be available for this trip.',
         ]
     
     elif len(data[YELLOW]) == 0:
         gfa = data[GREEN]['avg_fare_amount'].iloc[0]
         return [
-            '## Green Taxis will be available for this trip.',
-            f'## Expect the fare amount to be ~{gfa:.2f}'
+            f'## Expect the fare amount to be ~{gfa:.2f} with a Green Taxi.',
+            '### Green Taxis will be available for this trip.'
         ]
         
     else:
@@ -306,13 +307,13 @@ def getTripFareEst(pu_location_id, do_location_id, time_of_day):
         yfa = data[YELLOW]['avg_fare_amount'].iloc[0]
         if gfa < yfa:
             return [
-                '## Green Taxis should be preferred over Yellow for this trip as they offer lower fares.',
-                f'## Expect the fare amount to be ~{gfa:.2f}'
+                f'## Expect the fare amount to be ~{gfa:.2f} with a Green Taxi.',
+                '### Green Taxis should be preferred over Yellow for this trip as they offer lower fares.'
             ]
         else:
             return [
-                '## Yellow Taxis should be preferred over Green for this trip as they offer lower fares.',
-                f'## Expect the fare amount to be ~{yfa:.2f}'
+                f'## Expect the fare amount to be ~{yfa:.2f} with a Yellow Taxi.',
+                '### Yellow Taxis should be preferred over Green for this trip as they offer lower fares.'
             ]
     
 
@@ -452,6 +453,48 @@ def renderComparison():
         # st.plotly_chart(yellow_fig_rf, use_container_width=True)
         # st.plotly_chart(yellow_fig_table, use_container_width=True)
 
+def renderResiduals():
+    models = [
+        ('LinearRegression', 'lr'),
+        ('Ridge Regression', 'ridge'),
+        ('RandomForestRegressor', 'rfr'),
+        ('GradientBoostRegressor', 'gbm'),
+        ('LGBMRegressor', 'lgbm'),
+        ('XGBRegressor', 'xgbm'),
+    ]
+    c1,c2 = st.columns(2)
+    with c1:
+        st.write("## Green Taxi")
+    with c2:
+        st.write("## Yellow Taxi")
+
+    plt_type = st.selectbox("Select Plot", options=['Residual VS Predicted', 'Q-Q Plot'], index=0)
+    plots = {
+        'Residual VS Predicted': 'rvp',
+        'Q-Q Plot': 'qq'
+    }
+
+    c1,c2 = st.columns(2)
+    # c1,c2,c3,c4 = st.columns(4)
+
+    # c1.write("### Residuals VS Predicted")
+    # c2.write("### Q-Q Plot")
+    # c3.write("### Residuals VS Predicted")
+    # c4.write("### Q-Q Plot")
+
+    with c1:
+        for (name, id) in models:
+            st.image(f'img/green_{id}_{plots[plt_type]}.png', caption=f"{name}", use_column_width=True)
+            # c2.image(f'img/green_{id}_qq.png', caption=f"{name}", use_column_width=True)
+
+    with c2:
+        for (name, id) in models:
+            st.image(f'img/yellow_{id}_{plots[plt_type]}.png', caption=f"{name}", use_column_width=True)
+            # c4.image(f'img/yellow_{id}_qq.png', caption=f"{name}", use_column_width=True)
+
+    # residuals vs predicted -> qq and repeat for another taxi type
+    # make a function to return a list of images with model names to be displayed
+
 # RESULT
 def renderResult():
     location_options = getLocationOptions()
@@ -485,7 +528,7 @@ st.sidebar.title("NYC Taxi Trips Dashboard")
 st.sidebar.markdown("<small>Author: Ishani Makwana</small>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
-section = st.sidebar.radio("Go to", [GENERAL, MAPS, COMPARE, RESULT])
+section = st.sidebar.radio("Go to", [GENERAL, MAPS, COMPARE, RESIDUALS, RESULT])
 
 # Render main section by menu item
 if section == GENERAL:
@@ -499,6 +542,9 @@ elif section == MAPS:
 
 elif section == COMPARE:
     renderComparison()
+
+elif section == RESIDUALS:
+    renderResiduals()
 
 elif section == RESULT:
     renderResult()

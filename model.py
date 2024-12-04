@@ -202,11 +202,13 @@ import plotly.graph_objects as go
 def showPerformance(y_test, y_pred):
     # Calculate Model Accuracy Metrics
     mae = mean_absolute_error(y_test, y_pred)
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    mse = mean_squared_error(y_test, y_pred)
+    rmse = np.sqrt(mse)
     r2 = r2_score(y_test, y_pred)
 
     print(f"Model Accuracy Metrics:")
     print(f"Mean Absolute Error (MAE): {mae:.2f}")
+    print(f"Mean Squared Error (RMSE): {mse:.2f}")
     print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
     print(f"R-squared (Accuracy): {r2:.2f}")
 
@@ -247,3 +249,47 @@ def showPerformance(y_test, y_pred):
 
     # Show the plot
     fig.show()
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def residualAnalysis(X_test, y_test, y_pred):
+    residuals = y_test - y_pred
+
+    mse = mean_squared_error(y_test, y_pred)
+    print(f"Mean Squared Error: {mse}")
+
+    # 1. Residuals vs Predicted Values
+    plt.figure(figsize=(8, 5))
+    plt.scatter(y_pred, residuals, color="blue", edgecolor="k")
+    plt.axhline(y=0, color="red", linestyle="--")
+    plt.xlabel("Predicted Values")
+    plt.ylabel("Residuals")
+    plt.title("Residuals vs Predicted Values")
+    plt.show()
+
+    # 2. Residual Histogram
+    plt.figure(figsize=(8, 5))
+    sns.histplot(residuals, kde=True, bins=20, color="purple")
+    plt.xlabel("Residuals")
+    plt.ylabel("Frequency")
+    plt.title("Histogram of Residuals")
+    plt.show()
+
+    # 3. Q-Q Plot for Residuals
+    import scipy.stats as stats
+    plt.figure(figsize=(8, 5))
+    stats.probplot(residuals, dist="norm", plot=plt)
+    plt.title("Q-Q Plot of Residuals")
+    plt.show()
+
+    # 4. Residuals vs Individual Features
+    for feature in X_test.columns:
+        plt.figure(figsize=(8, 5))
+        sns.scatterplot(x=X_test[feature], y=residuals, color="green", edgecolor="k")
+        plt.axhline(y=0, color="red", linestyle="--")
+        plt.xlabel(feature)
+        plt.ylabel("Residuals")
+        plt.title(f"Residuals vs {feature}")
+        plt.show()

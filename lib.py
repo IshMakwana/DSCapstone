@@ -21,16 +21,35 @@ MAX_YEAR = 2023
 # TABLE_FORMAT = 'simple_grid'
 TABLE_FORMAT = 'rst'
 
-COMMON_FETCH_COLUMNS = ['pickup_datetime', 'pu_location_id', 'do_location_id', 'passenger_count', 'trip_distance', 'trip_duration', 
-                        'total_amount', 'fare_amount', 'tip_amount', 'mta_tax', 'tolls_amount', 'extra', 'improvement_surcharge', 
-                        'congestion_surcharge']
+COMMON_FETCH_COLUMNS = [
+    'pu_location_id',
+    'do_location_id',
+    'pickup_datetime',
+    'dropoff_datetime',
+    'passenger_count',
+    'trip_distance',
+    'trip_duration',
+    'total_amount', 
+    'fare_amount',
+    'tip_amount',
+    'mta_tax',
+    'tolls_amount',
+    'extra',
+    'improvement_surcharge', 
+    'congestion_surcharge'
+]
 
 # Caches
 BOX_PLOT_CACHE = 'box_plot_data'
 
 # Models
-RANDOM_FOREST = 'random_forest'
 LINEAR_REGRESSION = 'linear_regression'
+RANDOM_FOREST = 'random_forest'
+GRADIENT_BOOST = 'gradient_boost'
+XGB_REGRESSOR = 'xgb_regressor'
+LIGHT_GBM_REGRESSOR = 'light_gbm_regressor'
+RIDGE = 'ridge'
+NEURAL_NETWORK = 'neural_network'
 
 def getOutputPath(prefix = 'output'):
     today_date = datetime.datetime.today().strftime('%Y-%m-%d')

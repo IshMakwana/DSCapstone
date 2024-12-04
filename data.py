@@ -325,4 +325,34 @@ def getSqlForModeling(taxi_type, isTrain):
 
     return text(sql)
 
+def getSqlForModeling2(taxi_type):
+    columns = COMMON_FETCH_COLUMNS 
+
+    
+    
+    sql = f'''
+        SELECT * FROM (
+            {selFrom(columns, 2020, taxi_type)}
+            WHERE {' AND '.join(commonConditions(2020))} LIMIT 500000
+        )
+        UNION ALL
+        SELECT * FROM (
+            {selFrom(columns, 2021, taxi_type)}
+            WHERE {' AND '.join(commonConditions(2021))} LIMIT 500000
+        )
+        UNION ALL
+        SELECT * FROM (
+            {selFrom(columns, 2022, taxi_type)}
+            WHERE {' AND '.join(commonConditions(2022))} LIMIT 500000
+        )
+        UNION ALL
+        SELECT * FROM (
+            {selFrom(columns, 2023, taxi_type)}
+            WHERE {' AND '.join(commonConditions(2023))} LIMIT 500000
+        )
+
+    '''
+
+    return text(sql)
+
 # getSqlForModeling(GREEN, isTrain=False)

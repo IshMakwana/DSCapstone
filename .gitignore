@@ -168,6 +168,5 @@ output/*.txt
 output/*.png
 
 archive/*
-models/*
 
 pg[0-9].ipynb
