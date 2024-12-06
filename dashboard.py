@@ -16,6 +16,15 @@ RESULT = 'Result'
 available_years = [2020, 2021, 2022, 2023]
 polygon_gdf = getTaxiGDF()
 
+models = [
+    ('LinearRegression', 'lr'),
+    ('Ridge Regression', 'ridge'),
+    ('RandomForestRegressor', 'rfr'),
+    ('GradientBoostRegressor', 'gbm'),
+    ('LGBMRegressor', 'lgbm'),
+    ('XGBRegressor', 'xgbm'),
+]
+
 time_category_lists = {
     'time_of_day': ['Night', 'Morning', 'Afternoon', 'Evening'],
     'day_of_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -99,7 +108,7 @@ def plotByTimeCategory(data, category, x_fld, y_fld):
         xaxis=dict(showgrid=True),
         yaxis=dict(showgrid=True),
         template="plotly_white",
-        height=1000,
+        height=600,
         legend=dict(
             x=0.2,  # Horizontal position (0 is left, 1 is right)
             y=1,  # Vertical position (1 is top, >1 is above the plot)
@@ -207,43 +216,10 @@ def plotTable(df):
         ]
     )
 
-    fig.update_layout(title="Taxi Trip Data Table", #title_x=0.5,
+    fig.update_layout(title="Model Comparison", #title_x=0.5,
                       margin=dict(l=10, r=10, t=40, b=10),
                       height = 275) 
     return fig
-
-# def buildComparison(data, taxi_type):
-#     # create a list of models and features used to train it
-#     # write a method to get predict variable and generate a table of model vs it's performance metrics
-#     # display this table for green taxi and yellow taxi data
-#     X_LR, y_LR = data[FEATURES], data[VARIABLE] 
-#     X_RFR, y_RFR = data[FEATURES], data[VARIABLE]
-    
-#     lr_model = loadModel(f'{taxi_type}_{VARIABLE}_{LINEAR_REGRESSION}')
-#     y_pred_lr = lr_model.predict(X_LR)
-    
-#     rf_model = loadModel(f'{taxi_type}_{VARIABLE}_{RANDOM_FOREST}')
-#     y_pred_rf = rf_model.predict(X_RFR)
-    
-#     fig_lr = goLinePlot(f"{taxi_type.capitalize()} Taxi - Linear Regression Forecast", 
-#                         "Index","Total Amount", y_LR.index, y_LR, y_pred_lr)
-    
-#     fig_rf = goLinePlot(f"{taxi_type.capitalize()} Taxi - Random Forest Forecast", 
-#                         "Index","Total Amount", y_RFR.index, y_RFR, y_pred_rf)
-    
-#     metrics = {
-#         "Metric": ["R-squared (%)", "MAE", "RMSE", "MAPE (%)"],
-#         "Linear Regression": errors(y_LR, y_pred_lr),
-#         "Random Forest": errors(y_RFR, y_pred_rf),
-#     }
-#     fig_table = go.Figure(data=[go.Table(
-#         header=dict(values=["Metric", "Linear Regression", "Random Forest"], fill_color='darkgrey', align='center'),
-#         cells=dict(values=[metrics["Metric"], metrics["Linear Regression"], metrics["Random Forest"]], fill_color='black', align='center')
-#     )])
-#     fig_table.update_layout(title=f"{taxi_type.capitalize()} Taxi Model Performance Metrics", margin=dict(l=5, r=5, t=30, b=5))
-    
-#     return fig_lr, fig_rf, fig_table
-
 
 # ------------------------------------------------------------------------------------------------
 # Cached Data
@@ -287,7 +263,7 @@ def getTripFareEst(pu_location_id, do_location_id, time_of_day):
         print(df)
 
     if len(data[GREEN]) == 0 and len(data[YELLOW]) == 0:
-        return '''## Neither Green nor Yellow taxis are available for such trips. '''
+        return ['''## Neither Green nor Yellow taxis are available for such trips. ''']
     elif len(data[GREEN]) == 0:
         yfa = data[YELLOW]['avg_fare_amount'].iloc[0]
         return [
@@ -410,90 +386,84 @@ def renderMaps():
 
 # COMPARE
 def renderComparison():
-    col1, col2 = st.columns(2)
+    tab1, tab2 = st.tabs(['Visual Validation', 'Performance'])
     
-    with col1:
-        st.write("## Green Taxi Forecast")
+    with tab1:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("## Green Taxi Forecast")
 
-        st.image('img/green_lr.png', caption="LinearRegression Model Forecast", use_column_width=True)
-        st.image('img/green_rfr.png', caption="RandomForestRegressor Model Forecast", use_column_width=True)
-        st.image('img/green_gbm.png', caption="GradientBoostRegressor Model Forecast", use_column_width=True)
-        st.image('img/green_xgbm.png', caption="XGBRegressor Model Forecast", use_column_width=True)
-        st.image('img/green_lgbm.png', caption="LGBMRegressor Model Forecast", use_column_width=True)
-        st.image('img/green_ridge.png', caption="Ridge Model Forecast", use_column_width=True)
-        # st.image('img/green_nn.png', caption="Neural Network Model Forecast", use_column_width=True)
+            st.image('img/green_lr.png', caption="LinearRegression Model Forecast", use_column_width=True)
+            st.image('img/green_rfr.png', caption="RandomForestRegressor Model Forecast", use_column_width=True)
+            st.image('img/green_gbm.png', caption="GradientBoostRegressor Model Forecast", use_column_width=True)
+            st.image('img/green_xgbm.png', caption="XGBRegressor Model Forecast", use_column_width=True)
+            st.image('img/green_lgbm.png', caption="LGBMRegressor Model Forecast", use_column_width=True)
+            st.image('img/green_ridge.png', caption="Ridge Model Forecast", use_column_width=True)
 
-        fig = plotTable(green_result_df)
-        st.plotly_chart(fig, use_container_width=True)
+        with col2:
+            st.write("## Yellow Taxi Forecast")
 
-        # get ransom sample of n rows by taxi_type
-        # df = getSampleData(GREEN)
-        # green_fig_lr, green_fig_rf, green_fig_table = buildComparison(df, GREEN)
-        # st.plotly_chart(green_fig_lr, use_container_width=True)
-        # st.plotly_chart(green_fig_rf, use_container_width=True)
-        # st.plotly_chart(green_fig_table, use_container_width=True)
-        
-    with col2:
-        st.write("## Yellow Taxi Forecast")
+            st.image('img/yellow_lr.png', caption="LinearRegression Model Forecast", use_column_width=True)
+            st.image('img/yellow_rfr.png', caption="RandomForestRegressor Model Forecast", use_column_width=True)
+            st.image('img/yellow_gbm.png', caption="GradientBoostRegressor Model Forecast", use_column_width=True)
+            st.image('img/yellow_xgbm.png', caption="XGBRegressor Model Forecast", use_column_width=True)
+            st.image('img/yellow_lgbm.png', caption="LGBMRegressor Model Forecast", use_column_width=True)
+            st.image('img/yellow_ridge.png', caption="Ridge Model Forecast", use_column_width=True)
 
-        st.image('img/yellow_lr.png', caption="LinearRegression Model Forecast", use_column_width=True)
-        st.image('img/yellow_rfr.png', caption="RandomForestRegressor Model Forecast", use_column_width=True)
-        st.image('img/yellow_gbm.png', caption="GradientBoostRegressor Model Forecast", use_column_width=True)
-        st.image('img/yellow_xgbm.png', caption="XGBRegressor Model Forecast", use_column_width=True)
-        st.image('img/yellow_lgbm.png', caption="LGBMRegressor Model Forecast", use_column_width=True)
-        st.image('img/yellow_ridge.png', caption="Ridge Model Forecast", use_column_width=True)
-        # st.image('img/yellow_nn.png', caption="Neural Network Model Forecast", use_column_width=True)
+            
+        # for tt in [GREEN, YELLOW]:
+        #     st.write(f'### {tt.capitalize()} Taxi')
+        #     cols = st.columns(2)
+        #     for i, (name, id) in enumerate(models):
+        #         cols[i % 2].image(f'img/{tt}_{id}.png', caption=f"{name} Model Forecast", use_column_width=True)
 
-        fig = plotTable(yellow_result_df)
-        st.plotly_chart(fig, use_container_width=True)
+    with tab2:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("## Green Taxi Forecast")
 
-        # df = getSampleData(YELLOW)
-        # yellow_fig_lr, yellow_fig_rf, yellow_fig_table = buildComparison(df, YELLOW)
-        # st.plotly_chart(yellow_fig_lr, use_container_width=True)
-        # st.plotly_chart(yellow_fig_rf, use_container_width=True)
-        # st.plotly_chart(yellow_fig_table, use_container_width=True)
+            # st.image('img/green_lr.png', caption="LinearRegression Model Forecast", use_column_width=True)
+            # st.image('img/green_rfr.png', caption="RandomForestRegressor Model Forecast", use_column_width=True)
+            # st.image('img/green_gbm.png', caption="GradientBoostRegressor Model Forecast", use_column_width=True)
+            # st.image('img/green_xgbm.png', caption="XGBRegressor Model Forecast", use_column_width=True)
+            # st.image('img/green_lgbm.png', caption="LGBMRegressor Model Forecast", use_column_width=True)
+            # st.image('img/green_ridge.png', caption="Ridge Model Forecast", use_column_width=True)
 
+            fig = plotTable(green_result_df)
+            st.plotly_chart(fig, use_container_width=True)
+            
+        with col2:
+            st.write("## Yellow Taxi Forecast")
+
+            # st.image('img/yellow_lr.png', caption="LinearRegression Model Forecast", use_column_width=True)
+            # st.image('img/yellow_rfr.png', caption="RandomForestRegressor Model Forecast", use_column_width=True)
+            # st.image('img/yellow_gbm.png', caption="GradientBoostRegressor Model Forecast", use_column_width=True)
+            # st.image('img/yellow_xgbm.png', caption="XGBRegressor Model Forecast", use_column_width=True)
+            # st.image('img/yellow_lgbm.png', caption="LGBMRegressor Model Forecast", use_column_width=True)
+            # st.image('img/yellow_ridge.png', caption="Ridge Model Forecast", use_column_width=True)
+
+            fig = plotTable(yellow_result_df)
+            st.plotly_chart(fig, use_container_width=True)
+
+# RESIDUALS
 def renderResiduals():
-    models = [
-        ('LinearRegression', 'lr'),
-        ('Ridge Regression', 'ridge'),
-        ('RandomForestRegressor', 'rfr'),
-        ('GradientBoostRegressor', 'gbm'),
-        ('LGBMRegressor', 'lgbm'),
-        ('XGBRegressor', 'xgbm'),
-    ]
-    c1,c2 = st.columns(2)
-    with c1:
-        st.write("## Green Taxi")
-    with c2:
-        st.write("## Yellow Taxi")
-
-    plt_type = st.selectbox("Select Plot", options=['Residual VS Predicted', 'Q-Q Plot'], index=0)
+    
+    c1,_,_ = st.columns(3)
+    tab_options = ['Residual VS Predicted', 'Q-Q Plot']
+    tabs = st.tabs(tab_options)
+    # plt_type = c1.selectbox("Select Plot", options=['Residual VS Predicted', 'Q-Q Plot'], index=0)
     plots = {
         'Residual VS Predicted': 'rvp',
         'Q-Q Plot': 'qq'
     }
 
-    c1,c2 = st.columns(2)
-    # c1,c2,c3,c4 = st.columns(4)
-
-    # c1.write("### Residuals VS Predicted")
-    # c2.write("### Q-Q Plot")
-    # c3.write("### Residuals VS Predicted")
-    # c4.write("### Q-Q Plot")
-
-    with c1:
-        for (name, id) in models:
-            st.image(f'img/green_{id}_{plots[plt_type]}.png', caption=f"{name}", use_column_width=True)
-            # c2.image(f'img/green_{id}_qq.png', caption=f"{name}", use_column_width=True)
-
-    with c2:
-        for (name, id) in models:
-            st.image(f'img/yellow_{id}_{plots[plt_type]}.png', caption=f"{name}", use_column_width=True)
-            # c4.image(f'img/yellow_{id}_qq.png', caption=f"{name}", use_column_width=True)
-
-    # residuals vs predicted -> qq and repeat for another taxi type
-    # make a function to return a list of images with model names to be displayed
+    for tab_idx, tab in enumerate(tabs):
+        with tab:
+            for tt in [GREEN, YELLOW]:
+                st.write(f'### {tt.capitalize()} Taxi')
+                cols = st.columns(6)
+                for i, (name, id) in enumerate(models):
+                    cols[i].image(f'img/{tt}_{id}_{plots[tab_options[tab_idx]]}.png', caption=f"{name}", use_column_width=True)
 
 # RESULT
 def renderResult():
@@ -528,15 +498,12 @@ st.sidebar.title("NYC Taxi Trips Dashboard")
 st.sidebar.markdown("<small>Author: Ishani Makwana</small>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
-section = st.sidebar.radio("Go to", [GENERAL, MAPS, COMPARE, RESIDUALS, RESULT])
+section = st.sidebar.radio("Go to", [GENERAL, MAPS, RESIDUALS, COMPARE, RESULT])
 
 # Render main section by menu item
 if section == GENERAL:
-    # green vs yellow taxi
     renderGeneral()
 
-    # show weekly average
-    # show by location 
 elif section == MAPS:
     renderMaps()
 
